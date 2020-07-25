@@ -39,12 +39,6 @@ fi
 DART_BIN_DIR=$BUILD_DIR
 mkdir -p $DART_BIN_DIR
  
-print "ls in BUILD DIRECTORY"
-ls
-
-print "ls in APP DIRECTORY"
-ls -l app/
-
 cd $DART_BIN_DIR
 
 print "-----> Installing Dart VM via URL $DART_SDK_URL"
@@ -78,8 +72,8 @@ cd $BUILD_DIR
 print "----> Changing to beta channel in Flutter"
 flutter/bin/flutter  channel beta
 
-print "----> Running Flutter upgrade"
-flutter/bin/flutter upgrade
+# print "----> Running Flutter upgrade"
+# flutter/bin/flutter upgrade
 
 
 DART_VERSION=`dart-sdk/bin/dart  --version`
