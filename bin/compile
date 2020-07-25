@@ -76,11 +76,13 @@ print "----> Running Flutter upgrade"
 flutter/bin/flutter upgrade
 
 
+cd $BUILD_DIR.dart-sdk/
+print $(ls)
 
-DART_VERSION=$(.dart-sdk/bin/dart  --version)
+DART_VERSION=$(bin/dart  --version)
 print "----> DART VERSION : $DART_VERSION"
 
-FLUTTER_VERSION=$(.dart-sdk/bin/dart --version)
+FLUTTER_VERSION=$(bin/dart --version)
 print "----> FLUTTER VERSION: $FLUTTER_VERSION"
 
 
