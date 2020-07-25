@@ -36,7 +36,7 @@ if [ -z "$FLUTTER_SDK_URL" ]; then
     exit 1
 fi
 
-DART_BIN_DIR = $BUILD_DIR/.dart-sdk/
+DART_BIN_DIR=$BUILD_DIR/.dart-sdk/
 mkdir -p $DART_BIN_DIR
 
 cd $DART_BIN_DIR
@@ -58,7 +58,7 @@ case "${DART_SDK_URL: -3}" in
 esac
 
 
-FLUTTER_BIN_DIR = $BUILD_DIR
+FLUTTER_BIN_DIR=$BUILD_DIR
 mkdir -p $FLUTTER_BIN_DIR
 
 cd $FLUTTER_BIN_DIR
