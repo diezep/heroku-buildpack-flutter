@@ -38,6 +38,12 @@ fi
 
 DART_BIN_DIR=$BUILD_DIR
 mkdir -p $DART_BIN_DIR
+ 
+print "ls in BUILD DIRECTORY"
+ls
+
+print "ls in APP DIRECTORY"
+ls -l app/
 
 cd $DART_BIN_DIR
 
