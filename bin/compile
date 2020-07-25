@@ -76,10 +76,10 @@ print "----> Running Flutter upgrade"
 flutter/bin/flutter upgrade
 
 
-DART_VERSION=$(dart-sdk/bin/dart  --version)
+DART_VERSION=`dart-sdk/bin/dart  --version`
 print "----> DART VERSION : $DART_VERSION"
 
-FLUTTER_VERSION=$(flutter/bin/flutter --version)
+FLUTTER_VERSION=`flutter/bin/flutter --version`
 print "----> FLUTTER VERSION: $FLUTTER_VERSION"
 
 
@@ -89,6 +89,5 @@ flutter/bin/flutter pub get
 print "----> ENABLE FLUTTER WEB"
 flutter/bin/flutter config --enable-web
 
-
 print "----> BUILDING FLUTTER WEB APP"
-flutter/bin/flutter build web --release
+flutter/bin/flutter build web
