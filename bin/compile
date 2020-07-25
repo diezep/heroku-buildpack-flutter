@@ -36,7 +36,7 @@ if [ -z "$FLUTTER_SDK_URL" ]; then
     exit 1
 fi
 
-DART_BIN_DIR=$BUILD_DIR/.dart-sdk/
+DART_BIN_DIR=$BUILD_DIR
 mkdir -p $DART_BIN_DIR
 
 cd $DART_BIN_DIR
@@ -75,17 +75,11 @@ flutter/bin/flutter  channel beta
 print "----> Running Flutter upgrade"
 flutter/bin/flutter upgrade
 
-print 'BUILD DIR'
-print $(ls)
 
-print 'DART SDK PATH'
-cd .dart-sdk/
-print $(ls)
-
-DART_VERSION=$(bin/dart  --version)
+DART_VERSION=$(dart-sdk/bin/dart  --version)
 print "----> DART VERSION : $DART_VERSION"
 
-FLUTTER_VERSION=$(bin/dart --version)
+FLUTTER_VERSION=$(flutter/bin/flutter --version)
 print "----> FLUTTER VERSION: $FLUTTER_VERSION"
 
 
