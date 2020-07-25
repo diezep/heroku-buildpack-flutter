@@ -67,24 +67,22 @@ print "-----> Installing Flutter SDK via URL $FLUTTER_SDK_URL"
 curl -L -k $FLUTTER_SDK_URL > flutter-sdk.tar.xz ; tar xf flutter-sdk.tar.xz
 
 
-_='flutter/bin/flutter'
-
-print "----> Changing to beta channel in Flutter"
-$FLUTTER_BIN_DIR$_  channel beta
-
-print "----> Running Flutter upgrade"
-$FLUTTER_BIN_DIR$_ upgrade
-
-
-
-_='bin/dart'
-DART_VERSION=$($DART_BIN_DIR$_  --version)
-print "----> DART VERSION : $DART_VERSION"
-
-FLUTTER_VERSION=$($FLUTTER_BIN_DIR$_ --version)
-print "----> FLUTTER VERSION: $FLUTTER_VERSION"
 
 cd $BUILD_DIR
+print "----> Changing to beta channel in Flutter"
+flutter/bin/flutter  channel beta
+
+print "----> Running Flutter upgrade"
+flutter/bin/flutter upgrade
+
+
+
+DART_VERSION=$(.dart-sdk/bin/dart  --version)
+print "----> DART VERSION : $DART_VERSION"
+
+FLUTTER_VERSION=$(.dart-sdk/bin/dart --version)
+print "----> FLUTTER VERSION: $FLUTTER_VERSION"
+
 
 print "----> GETTING PACKAGES"
 flutter/bin/flutter pub get
