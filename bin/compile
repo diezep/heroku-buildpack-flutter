@@ -1,0 +1,76 @@
+#!/usr/bin/env bash
+# bin/compile <build-dir> <cache-dir> <env-dir>
+
+set -e
+unset GIT_DIR
+
+function print {
+  echo "$1"
+}
+
+BUILD_DIR=${1:-}
+CACHE_DIR=${2:-}
+ENV_DIR=${3:-}
+
+
+if [ -z "$DART_SDK_URL" ]; then
+    print "ERROR: you must specify DART_SDK_URL to a Dart SDK for Linux."
+    exit 1
+fi
+
+if [ -z "$FLUTTER_SDK_URL" ]; then
+    print "ERROR: you must specify FLUTTER_SDK_URL to a Flutter SDK for Linux."
+    exit 1
+fi
+
+DART_BIN_DIR = $BUILD_DIR/.dart-sdk/
+mkdir -p $DART_BIN_DIR
+
+cd $DART_BIN_DIR
+
+print "-----> Installing Dart VM via URL $DART_SDK_URL"
+
+case "${DART_SDK_URL: -3}" in
+  tar)
+    print "SDK: tarball detected"
+    curl -L -k $DART_SDK_URL -o - | tar xzf -
+    ;;
+  zip)
+    print "SDK: zip detected"
+    curl -L -k $DART_SDK_URL > dart-sdk.zip ; unzip -o -q dart-sdk.zip
+    ;;
+  *)
+    print "Invalid Dart SDK URL"
+    ;;
+esac
+
+
+FLUTTER_BIN_DIR = $BUILD_DIR
+mkdir -p $FLUTTER_BIN_DIR
+
+cd $FLUTTER_BIN_DIR
+
+print "-----> Installing Flutter SDK via URL $FLUTTER_SDK_URL"
+curl -L -k $FLUTTER_SDK_URL > flutter-sdk.tar.xz ; tar xf flutter-sdk.tar.xz
+
+$FLUTTER_BIN_DIR/flutter/bin/flutter channel beta
+$FLUTTER_BIN_DIR/flutter/bin/flutter upgrade
+
+
+DART_VERSION=$($DART_BIN_DIR/bin/dart --version)
+print "----> DART VERSION : $DART_VERSION"
+
+FLUTTER_VERSION=$($FLUTTER_BIN_DIR/bin/dart --version)
+print "----> FLUTTER VERSION: $FLUTTER_VERSION"
+
+cd $BUILD_DIR
+
+print "----> GETTING PACKAGES"
+flutter/bin/flutter pub get
+
+print "----> ENABLE FLUTTER WEB"
+flutter/bin/flutter config --enable-web
+
+
+print "----> BUILDING FLUTTER WEB APP"
+flutter/bin/flutter build web --release
