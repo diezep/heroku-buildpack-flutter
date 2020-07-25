@@ -75,8 +75,11 @@ flutter/bin/flutter  channel beta
 print "----> Running Flutter upgrade"
 flutter/bin/flutter upgrade
 
+print 'BUILD DIR'
+print $(ls)
 
-cd $BUILD_DIR.dart-sdk/
+print 'DART SDK PATH'
+cd .dart-sdk/
 print $(ls)
 
 DART_VERSION=$(bin/dart  --version)
