@@ -36,10 +36,7 @@ if [ -z "$FLUTTER_SDK_URL" ]; then
     exit 1
 fi
 
-DART_BIN_DIR=$BUILD_DIR
-mkdir -p $DART_BIN_DIR
- 
-cd $DART_BIN_DIR
+cd $BUILD_DIR
 
 print "-----> Installing Dart VM via URL $DART_SDK_URL"
 
@@ -58,30 +55,26 @@ case "${DART_SDK_URL: -3}" in
 esac
 
 
-FLUTTER_BIN_DIR=$BUILD_DIR
-mkdir -p $FLUTTER_BIN_DIR
+# FLUTTER_BIN_DIR=$BUILD_DIR
+# mkdir -p $FLUTTER_BIN_DIR
 
-cd $FLUTTER_BIN_DIR
+# cd $FLUTTER_BIN_DIR
 
 print "-----> Installing Flutter SDK via URL $FLUTTER_SDK_URL"
 curl -L -k $FLUTTER_SDK_URL > flutter-sdk.tar.xz ; tar xf flutter-sdk.tar.xz
 
-
-
-cd $BUILD_DIR
+# cd $BUILD_DIR
 print "----> Changing to beta channel in Flutter"
-flutter/bin/flutter  channel beta
+flutter/bin/flutter channel beta
 
-# print "----> Running Flutter upgrade"
-# flutter/bin/flutter upgrade
-
+print "----> Running Flutter upgrade"
+flutter/bin/flutter upgrade
 
 DART_VERSION=`dart-sdk/bin/dart  --version`
 print "----> DART VERSION : $DART_VERSION"
 
 FLUTTER_VERSION=`flutter/bin/flutter --version`
 print "----> FLUTTER VERSION: $FLUTTER_VERSION"
-
 
 print "----> GETTING PACKAGES"
 flutter/bin/flutter pub get
