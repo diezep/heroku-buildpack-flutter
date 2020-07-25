@@ -37,7 +37,12 @@ if [ -z "$FLUTTER_SDK_URL" ]; then
 fi
 
 cd $BUILD_DIR
-
+ls
+print "__________________"  
+ls -l $BUILD_DIR
+print "__________________"  
+ls -l $BUILD_DIRweb
+print "__________________"  
 print "-----> Installing Dart VM via URL $DART_SDK_URL"
 
 case "${DART_SDK_URL: -3}" in
