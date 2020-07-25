@@ -12,15 +12,19 @@ BUILD_DIR=${1:-}
 CACHE_DIR=${2:-}
 ENV_DIR=${3:-}
 
-
-if [ -z "$DART_SDK_URL" ]; then
-    print "ERROR: you must specify DART_SDK_URL to a Dart SDK for Linux."
-    exit 1
+if [ -f $ENV_DIR/DART_SDK_URL]; then
+  DART_SDK_URL=$(cat $ENV_DIR/DART_SDK_URL)
+else    
+  print "ERROR: you must specify DART_SDK_URL to a Dart SDK for Linux."
+  exit 1
 fi
 
-if [ -z "$FLUTTER_SDK_URL" ]; then
-    print "ERROR: you must specify FLUTTER_SDK_URL to a Flutter SDK for Linux."
-    exit 1
+
+if [ -f $ENV_DIR/FLUTTER_SDK_URL]; then
+  FLUTTER_SDK_URL=$(cat $ENV_DIR/FLUTTER_SDK_URL)
+else    
+  print "ERROR: you must specify FLUTTER_SDK_URL to a Flutter SDK for Linux."
+  exit 1
 fi
 
 DART_BIN_DIR = $BUILD_DIR/.dart-sdk/
