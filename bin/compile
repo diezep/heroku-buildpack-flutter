@@ -110,7 +110,7 @@ fi
 # Creating temp directory
 cd $BUILD_DIR
 
-mv -R build/web $BUILD_DIR
+mv build/web $BUILD_DIR
 
 for dir in ./*; do
     [ "$dir" = "web" ] && continue
