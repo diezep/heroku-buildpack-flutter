@@ -71,18 +71,16 @@ else
   cd ..
 fi
 
-print "----> Changing to beta channel in Flutter"
-flutter/bin/flutter channel beta
+flutter/bin/flutter version 1.19.0-4.3.pre 
+# print "----> Changing to beta channel in Flutter"
+# flutter/bin/flutter channel beta
 
-print "----> Running Flutter upgrade"
-flutter/bin/flutter upgrade
-
-
+# print "----> Running Flutter upgrade"
+# flutter/bin/flutter upgrade
 
 flutter/bin/flutter doctor 
 flutter/bin/flutter clean 
 
-# flutter/bin/flutter version 1.19.0-4.3.pre 
 
 print "----> GETTING PACKAGES"
 flutter/bin/flutter pub get
