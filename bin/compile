@@ -25,6 +25,7 @@ export_env_dir() {
 }
 
 export_env_dir "$3"
+
 # Check ENV VARS
 if [ -z "$DART_SDK_URL" ]; then
     print "ERROR: you must specify DART_SDK_URL to a Dart SDK for Linux."
@@ -34,8 +35,6 @@ if [ -z "$FLUTTER_SDK_URL" ]; then
     print "ERROR: you must specify FLUTTER_SDK_URL to a Flutter SDK for Linux."
     exit 1
 fi
-
-
 
 
 print "-----> Installing Dart VM via URL $DART_SDK_URL"
@@ -91,11 +90,10 @@ flutter/bin/flutter config --enable-web
 print "----> BUILDING FLUTTER WEB APP"
 flutter/bin/flutter build web --release --dart-define=FLUTTER_WEB_USE_EXPERIMENTAL_CANVAS_TEXT=true
 
-
+# Saving SDK in Cache
 if [ -x dart-sdk/bin/dart ]; then
-  DART_VERSION=`dart-sdk/bin/dart  --version`
-  print "----> DART VERSION : $DART_VERSION"
-
+  # DART_VERSION=`dart-sdk/bin/dart  --version`
+  # print "----> DART VERSION : $DART_VERSION"
 
   print "----> SAVING DART IN CACHE"
   rm -rf $CACHE_DIR/dart-sdk
@@ -104,12 +102,23 @@ if [ -x dart-sdk/bin/dart ]; then
 fi
 
 if [ -x flutter/bin/flutter ]; then
-  FLUTTER_VERSION=`flutter/bin/flutter --version`
-  print "----> FLUTTER VERSION: $FLUTTER_VERSION"
- 
+  # FLUTTER_VERSION=`flutter/bin/flutter --version`
+  # print "----> FLUTTER VERSION: $FLUTTER_VERSION"
  
   print "----> SAVING FLUTTER IN CACHE"
   rm -rf $CACHE_DIR/flutter
   cp -R $BUILD_DIR/flutter $CACHE_DIR
   rm -rf $BUILD_DIR/flutter
 fi
+
+# Creating temp directory
+TEMP_DIR=`mktemp -d $CACHE_DIR/web`
+cp -R $BUILD_DIR/build/web/. $TEMP_DIR/
+
+# Cleaning BUILD_DIR
+rm -rf $BUILD_DIR
+mkdir -p $BUILD_DIR
+
+# Moving web files 
+cp -R $TMP_DIR/. $BUILD_DIR/
+rm -rf $TMP_DIR
