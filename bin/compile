@@ -66,6 +66,7 @@ if [ -d $CACHE_DIR/flutter ]; then
 else
   cd $BUILD_DIR
   curl -L -k $FLUTTER_SDK_URL > flutter-sdk.tar.xz ; tar xf flutter-sdk.tar.xz
+  git pull 
 fi
 
 print "----> Changing to beta channel in Flutter"
@@ -74,14 +75,22 @@ flutter/bin/flutter channel beta
 print "----> Running Flutter upgrade"
 flutter/bin/flutter upgrade
 
+
+
+flutter/bin/flutter doctor 
+flutter/bin/flutter clean 
+
+# flutter/bin/flutter version 1.19.0-4.3.pre 
+
 print "----> GETTING PACKAGES"
 flutter/bin/flutter pub get
 
 print "----> ENABLE FLUTTER WEB"
-flutter/bin/flutter config --enable-web
+flutter/bin/flutter config --enable-web 
 
 print "----> BUILDING FLUTTER WEB APP"
-flutter/bin/flutter build web
+flutter/bin/flutter build web --release --dart-define=FLUTTER_WEB_USE_EXPERIMENTAL_CANVAS_TEXT=true
+
 
 if [ -x dart-sdk/bin/dart ]; then
   DART_VERSION=`dart-sdk/bin/dart  --version`
