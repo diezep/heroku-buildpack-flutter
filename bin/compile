@@ -105,6 +105,8 @@ if [ -x flutter/bin/flutter ]; then
   rm -rf $BUILD_DIR/flutter
 fi
 
+ls $BUILD_DIR/build/web/
+
 # Creating temp directory
 TEMP_DIR=`mktemp -d $CACHE_DIR/webXXXXX`
 cp -R $BUILD_DIR/build/web/. $TEMP_DIR/
@@ -117,8 +119,6 @@ mkdir -p $BUILD_DIR
 cp -R $TMP_DIR/. $BUILD_DIR/
 rm -rf $TMP_DIR
 
-
-# 
 cd $BUILD_DIR
 echo '{}' > composer.json
 echo '<?php include_once("index.html"); ?>' > index.php
