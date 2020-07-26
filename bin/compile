@@ -35,7 +35,7 @@ if [ -z "$FLUTTER_SDK_URL" ]; then
     print "ERROR: you must specify FLUTTER_SDK_URL to a Flutter SDK for Linux."
     exit 1
 fi
-
+ls $CACHE_DIR
 
 if [ -d $CACHE_DIR/dart-sdk ]; then
   print "-----> Restoring DART from cache"
