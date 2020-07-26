@@ -107,24 +107,22 @@ if [ -x flutter/bin/flutter ]; then
   rm -rf $BUILD_DIR/flutter
 fi
 
-ls $BUILD_DIR/build/web/
+# ls $BUILD_DIR/build/web/
 
-# Creating temp directory
+# # Creating temp directory
 
-TEMP_DIR=`mktemp -d $CACHE_DIR/appwebXXXXXXXX -q`
+# TEMP_DIR=`mktemp -d $CACHE_DIR/appwebXXXXXXXX -q`
 
-cd $BUILD_DIR
-cp -R build/web/. $TEMP_DIR/
+# cd $BUILD_DIR
+# cp -R build/web/. $TEMP_DIR/
 
-# Cleaning BUILD_DIR
-rm -rf $BUILD_DIR/*
+# # Cleaning BUILD_DIR
+# rm -rf $BUILD_DIR/*
 
-# Moving web files 
-cp -R $TMP_DIR/. $BUILD_DIR/
-# rm -rf $TMP_DIR
+# # Moving web files 
+# cp -R $TMP_DIR/. $BUILD_DIR/
+# # rm -rf $TMP_DIR
 
-cd $BUILD_DIR
-ls
+# cd $BUILD_DIR
+# ls
 
-echo '{}' > composer.json
-echo '<?php include_once("index.html"); ?>' > index.php
