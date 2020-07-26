@@ -25,61 +25,54 @@ export_env_dir() {
 }
 
 export_env_dir "$3"
-
+# Check ENV VARS
 if [ -z "$DART_SDK_URL" ]; then
     print "ERROR: you must specify DART_SDK_URL to a Dart SDK for Linux."
     exit 1
 fi
-
 if [ -z "$FLUTTER_SDK_URL" ]; then
     print "ERROR: you must specify FLUTTER_SDK_URL to a Flutter SDK for Linux."
     exit 1
 fi
 
-cd $BUILD_DIR
-ls
-print "__________________"  
-ls -l $BUILD_DIR
-print "__________________"  
-ls -l $BUILD_DIRweb
-print "__________________"  
+
+
+
 print "-----> Installing Dart VM via URL $DART_SDK_URL"
-
-case "${DART_SDK_URL: -3}" in
-  tar)
-    print "SDK: tarball detected"
-    curl -L -k $DART_SDK_URL -o - | tar xzf -
-    ;;
-  zip)
-    print "SDK: zip detected"
-    curl -L -k $DART_SDK_URL > dart-sdk.zip ; unzip -o -q dart-sdk.zip
-    ;;
-  *)
-    print "Invalid Dart SDK URL"
-    ;;
-esac
-
-
-# FLUTTER_BIN_DIR=$BUILD_DIR
-# mkdir -p $FLUTTER_BIN_DIR
-
-# cd $FLUTTER_BIN_DIR
+if [ -d $CACHE_DIR/dart-sdk ]; then
+  print "-----> Restoring DART from cache"
+  cp -R $CACHE_DIR/dart-sdk $BUILD_DIR
+else
+  cd $BUILD_DIR
+  case "${DART_SDK_URL: -3}" in
+    tar)
+      print "SDK: tarball detected"
+      curl -L -k $DART_SDK_URL -o - | tar xzf -
+      ;;
+    zip)
+      print "SDK: zip detected"
+      curl -L -k $DART_SDK_URL > dart-sdk.zip ; unzip -o -q dart-sdk.zip
+      ;;
+    *)
+      print "Invalid Dart SDK URL"
+      ;;
+  esac
+fi
 
 print "-----> Installing Flutter SDK via URL $FLUTTER_SDK_URL"
-curl -L -k $FLUTTER_SDK_URL > flutter-sdk.tar.xz ; tar xf flutter-sdk.tar.xz
+if [ -d $CACHE_DIR/flutter ]; then
+  print "-----> Restoring FLUTTER from Cache"
+  cp -R $CACHE_DIR/flutter $BUILD_DIR
+else
+  cd $BUILD_DIR
+  curl -L -k $FLUTTER_SDK_URL > flutter-sdk.tar.xz ; tar xf flutter-sdk.tar.xz
+fi
 
-# cd $BUILD_DIR
 print "----> Changing to beta channel in Flutter"
 flutter/bin/flutter channel beta
 
 print "----> Running Flutter upgrade"
 flutter/bin/flutter upgrade
-
-DART_VERSION=`dart-sdk/bin/dart  --version`
-print "----> DART VERSION : $DART_VERSION"
-
-FLUTTER_VERSION=`flutter/bin/flutter --version`
-print "----> FLUTTER VERSION: $FLUTTER_VERSION"
 
 print "----> GETTING PACKAGES"
 flutter/bin/flutter pub get
@@ -89,3 +82,25 @@ flutter/bin/flutter config --enable-web
 
 print "----> BUILDING FLUTTER WEB APP"
 flutter/bin/flutter build web
+
+if [ -x dart-sdk/bin/dart ]; then
+  DART_VERSION=`dart-sdk/bin/dart  --version`
+  print "----> DART VERSION : $DART_VERSION"
+
+
+  print "----> SAVING DART IN CACHE"
+  rm -rf $CACHE_DIR/dart-sdk
+  cp -R $BUILD_DIR/dart-sdk $CACHE_DIR
+  rm -rf $BUILD_DIR/dart-sdk
+fi
+
+if [ -x flutter/bin/flutter ]; then
+  FLUTTER_VERSION=`flutter/bin/flutter --version`
+  print "----> FLUTTER VERSION: $FLUTTER_VERSION"
+ 
+ 
+  print "----> SAVING FLUTTER IN CACHE"
+  rm -rf $CACHE_DIR/flutter
+  cp -R $BUILD_DIR/flutter $CACHE_DIR
+  rm -rf $BUILD_DIR/flutter
+fi
