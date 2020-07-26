@@ -117,7 +117,7 @@ for dir in ./*; do
     rm -rf "$dir"
 done
 
-cp web/* .
+cp -r web/* .
 rm -rf web
 
 echo '{}' > composer.json
