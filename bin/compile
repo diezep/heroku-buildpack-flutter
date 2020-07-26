@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # bin/compile <build-dir> <cache-dir> <env-dir>
-
 ls $CACHE_DIR
+echo "hola" > $CACHE_DIR/hola.txt
 
 set -e
 unset GIT_DIR
@@ -37,11 +37,13 @@ if [ -z "$FLUTTER_SDK_URL" ]; then
     print "ERROR: you must specify FLUTTER_SDK_URL to a Flutter SDK for Linux."
     exit 1
 fi
+
+
+print "-----> Installing Dart VM via URL $DART_SDK_URL"
 if [ -d $CACHE_DIR/dart-sdk ]; then
   print "-----> Restoring DART from cache"
   cp -R $CACHE_DIR/dart-sdk $BUILD_DIR
 else
-  print "-----> Installing Dart VM via URL $DART_SDK_URL"
   cd $BUILD_DIR
   case "${DART_SDK_URL: -3}" in
     tar)
@@ -58,11 +60,11 @@ else
   esac
 fi
 
+print "-----> Installing Flutter SDK via URL $FLUTTER_SDK_URL"
 if [ -d $CACHE_DIR/flutter ]; then
   print "-----> Restoring FLUTTER from Cache"
   cp -R $CACHE_DIR/flutter $BUILD_DIR
 else
-  print "-----> Installing Flutter SDK via URL $FLUTTER_SDK_URL"
   cd $BUILD_DIR
   curl -L -k $FLUTTER_SDK_URL > flutter-sdk.tar.xz ; tar xf flutter-sdk.tar.xz
   cd flutter
@@ -105,27 +107,24 @@ if [ -x flutter/bin/flutter ]; then
   rm -rf $BUILD_DIR/flutter
 fi
 
-
+ls $BUILD_DIR/build/web/
 
 # Creating temp directory
-ls
-cp -R $BUILD_DIR/build/web $BUILD_DIR
-print "- - - - - - "
-ls
+cd $CACHE_DIR
+TEMP_DIR=`mktemp -d appwebXXXXXXXX -q`
 
-for dir in ./*; do
-    [ "$dir" = "web" ] && continue
-    rm -rf "$dir"
-done
+cd $BUILD_DIR
+cp -R build/web/ $TEMP_DIR/
 
-print "- - - - - - "
-cp -R $BUILD_DIR/build/web/* $BUILD_DIR
-print "- - - - - - "
-ls
-rm -rf web
+# Cleaning BUILD_DIR
+rm -rf $BUILD_DIR/*
+
+# Moving web files 
+cp -R $TMP_DIR/. $BUILD_DIR/
+# rm -rf $TMP_DIR
+
+cd $BUILD_DIR
 ls
 
 echo '{}' > composer.json
 echo '<?php include_once("index.html"); ?>' > index.php
-
-echo "hoa" > $CACHE_DIR/hola.txt 
