@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 # bin/compile <build-dir> <cache-dir> <env-dir>
 
+ls $CACHE_DIR
+
 set -e
 unset GIT_DIR
 
@@ -35,8 +37,6 @@ if [ -z "$FLUTTER_SDK_URL" ]; then
     print "ERROR: you must specify FLUTTER_SDK_URL to a Flutter SDK for Linux."
     exit 1
 fi
-ls $CACHE_DIR
-
 if [ -d $CACHE_DIR/dart-sdk ]; then
   print "-----> Restoring DART from cache"
   cp -R $CACHE_DIR/dart-sdk $BUILD_DIR
@@ -127,3 +127,5 @@ ls
 
 echo '{}' > composer.json
 echo '<?php include_once("index.html"); ?>' > index.php
+
+echo "hoa" > $CACHE_DIR/hola.txt 
