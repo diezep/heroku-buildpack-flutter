@@ -42,7 +42,7 @@ fi
 print "-----> Installing Dart VM via URL $DART_SDK_URL"
 if [ -d $CACHE_DIR/dart-sdk ]; then
   print "-----> Restoring DART from cache"
-  cp -R $CACHE_DIR/dart-sdk $BUILD_DIR
+  cp -R $CACHE_DIR/dart-sdk/. $BUILD_DIR
 else
   cd $BUILD_DIR
   case "${DART_SDK_URL: -3}" in
@@ -63,7 +63,7 @@ fi
 print "-----> Installing Flutter SDK via URL $FLUTTER_SDK_URL"
 if [ -d $CACHE_DIR/flutter ]; then
   print "-----> Restoring FLUTTER from Cache"
-  cp -R $CACHE_DIR/flutter $BUILD_DIR
+  cp -R $CACHE_DIR/flutter/. $BUILD_DIR
 else
   cd $BUILD_DIR
   curl -L -k $FLUTTER_SDK_URL > flutter-sdk.tar.xz ; tar xf flutter-sdk.tar.xz
@@ -96,14 +96,14 @@ flutter/bin/flutter build web --release --dart-define=FLUTTER_WEB_USE_EXPERIMENT
 if [ -x dart-sdk/bin/dart ]; then
   print "----> SAVING DART IN CACHE"
   rm -rf $CACHE_DIR/dart-sdk
-  cp -R $BUILD_DIR/dart-sdk $CACHE_DIR
+  cp -R $BUILD_DIR/dart-sdk $CACHE_DIR/dart-sdk
   rm -rf $BUILD_DIR/dart-sdk
 fi
 
 if [ -x flutter/bin/flutter ]; then
   print "----> SAVING FLUTTER IN CACHE"
   rm -rf $CACHE_DIR/flutter
-  cp -R $BUILD_DIR/flutter $CACHE_DIR
+  cp -R $BUILD_DIR/flutter $CACHE_DIR/flutter
   rm -rf $BUILD_DIR/flutter
 fi
 
