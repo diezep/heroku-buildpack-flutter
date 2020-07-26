@@ -37,11 +37,11 @@ if [ -z "$FLUTTER_SDK_URL" ]; then
 fi
 
 
-print "-----> Installing Dart VM via URL $DART_SDK_URL"
 if [ -d $CACHE_DIR/dart-sdk ]; then
   print "-----> Restoring DART from cache"
   cp -R $CACHE_DIR/dart-sdk $BUILD_DIR
 else
+  print "-----> Installing Dart VM via URL $DART_SDK_URL"
   cd $BUILD_DIR
   case "${DART_SDK_URL: -3}" in
     tar)
@@ -58,11 +58,11 @@ else
   esac
 fi
 
-print "-----> Installing Flutter SDK via URL $FLUTTER_SDK_URL"
 if [ -d $CACHE_DIR/flutter ]; then
   print "-----> Restoring FLUTTER from Cache"
   cp -R $CACHE_DIR/flutter $BUILD_DIR
 else
+  print "-----> Installing Flutter SDK via URL $FLUTTER_SDK_URL"
   cd $BUILD_DIR
   curl -L -k $FLUTTER_SDK_URL > flutter-sdk.tar.xz ; tar xf flutter-sdk.tar.xz
   cd flutter
@@ -110,7 +110,7 @@ fi
 # Creating temp directory
 cd $BUILD_DIR
 
-mv build/web $BUILD_DIR
+mv build/web/ $BUILD_DIR
 
 for dir in ./*; do
     [ "$dir" = "web" ] && continue
@@ -118,8 +118,7 @@ for dir in ./*; do
 done
 
 mv web/* $BUILD_DIR
-
-rm -rf web 
+rm -rf web
 
 echo '{}' > composer.json
 echo '<?php include_once("index.html"); ?>' > index.php
