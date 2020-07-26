@@ -110,13 +110,16 @@ fi
 # Creating temp directory
 cd $BUILD_DIR
 
-mkdir TO_DELETE
-mv * TO_DELETE
+mv -R build/web $BUILD_DIR
 
+for dir in ./*; do
+    [ "$dir" = "web" ] && continue
+    rm -rf "$dir"
+done
 
-# Cleaning BUILD_DIR
-mv -R TO_DELETE/build/web/. $BUILD_DIR
-rm -rf TO_DELETE
+mv web/* $BUILD_DIR
+
+rm -rf web 
 
 echo '{}' > composer.json
 echo '<?php include_once("index.html"); ?>' > index.php
