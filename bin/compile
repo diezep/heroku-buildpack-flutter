@@ -108,17 +108,22 @@ fi
 
 
 # Creating temp directory
-cd $BUILD_DIR
-
-cp -R build/web $BUILD_DIR
+ls
+cp -R $BUILD_DIR/build/web $BUILD_DIR
+print "- - - - - - "
+ls
 
 for dir in ./*; do
     [ "$dir" = "web" ] && continue
     rm -rf "$dir"
 done
 
-cp -R $BUILD_DIR/web/* $BUILD_DIR
+print "- - - - - - "
+cp -R $BUILD_DIR/build/web/* $BUILD_DIR
+print "- - - - - - "
+ls
 rm -rf web
+ls
 
 echo '{}' > composer.json
 echo '<?php include_once("index.html"); ?>' > index.php
