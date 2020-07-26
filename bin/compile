@@ -110,14 +110,14 @@ fi
 # Creating temp directory
 cd $BUILD_DIR
 
-mv build/web $BUILD_DIR
+cp build/web $BUILD_DIR
 
 for dir in ./*; do
     [ "$dir" = "web" ] && continue
     rm -rf "$dir"
 done
 
-mv web/* .
+cp web/* .
 rm -rf web
 
 echo '{}' > composer.json
