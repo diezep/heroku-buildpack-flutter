@@ -110,11 +110,11 @@ fi
 ls $BUILD_DIR/build/web/
 
 # Creating temp directory
-cd $CACHE_DIR
-TEMP_DIR=`mktemp -d appwebXXXXXXXX -q`
+
+TEMP_DIR=`mktemp -d $CACHE_DIR/appwebXXXXXXXX -q`
 
 cd $BUILD_DIR
-cp -R build/web/ $TEMP_DIR/
+cp -R build/web/. $TEMP_DIR/
 
 # Cleaning BUILD_DIR
 rm -rf $BUILD_DIR/*
