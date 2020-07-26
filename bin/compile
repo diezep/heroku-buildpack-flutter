@@ -66,7 +66,9 @@ if [ -d $CACHE_DIR/flutter ]; then
 else
   cd $BUILD_DIR
   curl -L -k $FLUTTER_SDK_URL > flutter-sdk.tar.xz ; tar xf flutter-sdk.tar.xz
+  cd flutter
   git pull 
+  cd ..
 fi
 
 print "----> Changing to beta channel in Flutter"
