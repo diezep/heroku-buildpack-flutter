@@ -92,9 +92,6 @@ flutter/bin/flutter build web --release --dart-define=FLUTTER_WEB_USE_EXPERIMENT
 
 # Saving SDK in Cache
 if [ -x dart-sdk/bin/dart ]; then
-  # DART_VERSION=`dart-sdk/bin/dart  --version`
-  # print "----> DART VERSION : $DART_VERSION"
-
   print "----> SAVING DART IN CACHE"
   rm -rf $CACHE_DIR/dart-sdk
   cp -R $BUILD_DIR/dart-sdk $CACHE_DIR
@@ -102,9 +99,6 @@ if [ -x dart-sdk/bin/dart ]; then
 fi
 
 if [ -x flutter/bin/flutter ]; then
-  # FLUTTER_VERSION=`flutter/bin/flutter --version`
-  # print "----> FLUTTER VERSION: $FLUTTER_VERSION"
- 
   print "----> SAVING FLUTTER IN CACHE"
   rm -rf $CACHE_DIR/flutter
   cp -R $BUILD_DIR/flutter $CACHE_DIR
@@ -122,3 +116,9 @@ mkdir -p $BUILD_DIR
 # Moving web files 
 cp -R $TMP_DIR/. $BUILD_DIR/
 rm -rf $TMP_DIR
+
+
+# 
+cd $BUILD_DIR
+echo '{}' > composer.json
+echo '<?php include_once("index.html"); ?>' > index.php
