@@ -81,7 +81,7 @@ fi
 cd $BUILD_DIR
 
 
-flutter/bin/flutter version 1.19.0-4.3.pre
+# flutter/bin/flutter version 1.19.0-4.3.pre
 flutter/bin/flutter channel beta
 
 if [ "$FLUTTER_UPGRADE" = true ] ; then
