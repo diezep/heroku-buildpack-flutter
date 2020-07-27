@@ -75,6 +75,7 @@ fi
 
 cd $BUILD_DIR
 flutter/bin/flutter version 1.19.0-4.3.pre 
+ls 
 # print "----> Changing to beta channel in Flutter"
 # flutter/bin/flutter channel beta
 
