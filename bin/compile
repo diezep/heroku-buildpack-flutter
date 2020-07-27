@@ -63,6 +63,10 @@ fi
 print "-----> Installing Flutter SDK via URL $FLUTTER_SDK_URL"
 if [ -d $CACHE_DIR/flutter ]; then
   print "-----> Restoring FLUTTER from Cache"
+  ls $CACHE_DIR/flutter/
+  print "- - - -"
+  ls $CACHE_DIR
+
   cp -R $CACHE_DIR/flutter/. $BUILD_DIR
 else
   cd $BUILD_DIR
