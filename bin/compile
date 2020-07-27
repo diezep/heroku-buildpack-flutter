@@ -74,8 +74,8 @@ else
 fi
 
 cd $BUILD_DIR
-flutter/bin/flutter version 1.19.0-4.3.pre 
-ls 
+# flutter/bin/flutter version 1.19.0-4.3.pre 
+# ls 
 # print "----> Changing to beta channel in Flutter"
 # flutter/bin/flutter channel beta
 
@@ -83,7 +83,7 @@ ls
 # flutter/bin/flutter upgrade
 
 #flutter/bin/flutter doctor 
-flutter/bin/flutter clean 
+# flutter/bin/flutter clean 
 
 
 print "----> GETTING PACKAGES"
