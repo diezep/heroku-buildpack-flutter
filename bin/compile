@@ -111,7 +111,7 @@ fi
 
 # Move only web files.
 
-TEMP_DIR=`mktemp -d $CACHE_DIR/appwebXXX`
+TEMP_DIR=`mkdir -d $CACHE_DIR/web`
 cp -R $BUILD_DIR/$PROJECT_PATH/. $TMP_DIR/
 rm -rf $BUILD_DIR
 mkdir -p $BUILD_DIR
