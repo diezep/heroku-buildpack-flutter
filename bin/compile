@@ -69,24 +69,25 @@ else
   print "-----> Installing Flutter SDK via URL $FLUTTER_SDK_URL"
   cd $BUILD_DIR
   curl -L -k $FLUTTER_SDK_URL > flutter-sdk.tar.xz ; tar xf flutter-sdk.tar.xz
+  
+  print "----> Changing to beta channel in Flutter"
+  # flutter/bin/flutter channel beta
+
   cd flutter
   git pull
   cd .. 
 fi
 
 cd $BUILD_DIR
-# flutter/bin/flutter version 1.19.0-4.3.pre 
-# ls 
-print "----> Changing to beta channel in Flutter"
-flutter/bin/flutter channel beta
+# flutter/bin/flutter version 1.19.0-4.3.pre
 
 if [-z "$FLUTTER_UPGRADE"] || ["$FLUTTER_UPGRADE" = true] ; then
-  print "----> Flutter upgrade "
+  print "----> FLUTTER UPGRADE"
   flutter/bin/flutter upgrade
 fi
- 
-print "----> Doing Flutter cleaning "
-flutter/bin/flutter clean 
+
+print "----> FLUTTER CLEANING "
+flutter/bin/flutter clean
 
 print "----> GETTING PACKAGES"
 flutter/bin/flutter pub get
@@ -122,5 +123,5 @@ mv TO_DELETE/build/web/* $BUILD_DIR
 rm -rf TO_DELETE
 
 
-dart-sdk/bin/pub global activate webdev 
-dart-sdk/bin/pub global run webdev build
+echo '{}' > composer.json
+echo '<?php include_once("index.html"); ?>' > index.php
