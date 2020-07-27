@@ -111,12 +111,11 @@ if [ -x flutter/bin/flutter ]; then
 fi
 
 
-mkdir $BUILD_DIR/TO_DELETE
-
 # Move only web files.
-mv $BUILD_DIR/* $BUILD_DIR/TO_DELETE/
-mv -R $BUILD_DIR/TO_DELETE/build/web/* $BUILD_DIR  
-rm -rf $BUILD_DIR/TO_DELETE
+cd $BUILD_DIR
+mv * TO_DELETE
+mv -R TO_DELETE/build/web/* $BUILD_DIR  
+rm -rf TO_DELETE
 
 
 echo '{}' > $BUILD_DIR/composer.json
