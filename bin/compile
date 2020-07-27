@@ -39,11 +39,11 @@ if [ -z "$FLUTTER_SDK_URL" ]; then
 fi
 
 
-print "-----> Installing Dart VM via URL $DART_SDK_URL"
 if [ -d $CACHE_DIR/dart-sdk ]; then
   print "-----> Restoring DART from cache"
   cp -R $CACHE_DIR/dart-sdk/. $BUILD_DIR
 else
+  print "-----> Installing Dart VM via URL $DART_SDK_URL"
   cd $BUILD_DIR
   case "${DART_SDK_URL: -3}" in
     tar)
@@ -60,12 +60,12 @@ else
   esac
 fi
 
-print "-----> Installing Flutter SDK via URL $FLUTTER_SDK_URL"
 if [ -d $CACHE_DIR/flutter ]; then
   print "-----> Restoring FLUTTER from Cache"
   cp -R $CACHE_DIR/flutter $BUILD_DIR
 
 else
+  print "-----> Installing Flutter SDK via URL $FLUTTER_SDK_URL"
   cd $BUILD_DIR
   curl -L -k $FLUTTER_SDK_URL > flutter-sdk.tar.xz ; tar xf flutter-sdk.tar.xz
   cd flutter
@@ -80,7 +80,7 @@ flutter/bin/flutter version 1.19.0-4.3.pre
 # print "----> Running Flutter upgrade"
 # flutter/bin/flutter upgrade
 
-flutter/bin/flutter doctor 
+#flutter/bin/flutter doctor 
 flutter/bin/flutter clean 
 
 
@@ -108,22 +108,10 @@ if [ -x flutter/bin/flutter ]; then
   rm -rf $BUILD_DIR/flutter
 fi
 
-# ls $BUILD_DIR/build/web/
-
-# # Creating temp directory
-
-# TEMP_DIR=`mktemp -d $CACHE_DIR/appwebXXXXXXXX -q`
-
-# cd $BUILD_DIR
-# cp -R build/web/. $TEMP_DIR/
-
-# # Cleaning BUILD_DIR
-# rm -rf $BUILD_DIR/*
-
-# # Moving web files 
-# cp -R $TMP_DIR/. $BUILD_DIR/
-# # rm -rf $TMP_DIR
-
-# cd $BUILD_DIR
-# ls
-
+# Move only web files.
+TEMP_DIR=`mktemp -d $CACHE_DIR/appwebXXX`
+cp -R $BUILD_DIR/build/web/. $TMP_DIR/
+rm -rf $BUILD_DIR
+mkdir -p $BUILD_DIR
+cp -R $TMP_DIR/. $BUILD_DIR/
+rm -rf $TMP_DIR
