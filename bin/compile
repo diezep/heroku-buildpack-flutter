@@ -36,10 +36,8 @@ if [ -z "$FLUTTER_SDK_URL" ]; then
     exit 1
 fi
 
-if [! -d $CACHE_DIR ]; then
-  print "Creating CACHE_DIR"
-  mkdir -p $CACHE_DIR
-fi
+print "Creating CACHE_DIR if not exists"
+mkdir -p $CACHE_DIR
 
 if [ -d $CACHE_DIR/dart-sdk ]; then
   print "-----> Restoring DART from cache"
@@ -112,6 +110,7 @@ if [ -x flutter/bin/flutter ]; then
 fi
 
 # Move only web files.
+
 TEMP_DIR=`mktemp -d $CACHE_DIR/appwebXXX`
 cp -R $BUILD_DIR/build/web/. $TMP_DIR/
 rm -rf $BUILD_DIR
