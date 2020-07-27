@@ -72,7 +72,10 @@ else
   git pull 
   cd ..
 fi
-
+cd $BUILD_DIR
+ls 
+print "- - -"
+ls flutter
 flutter/bin/flutter version 1.19.0-4.3.pre 
 # print "----> Changing to beta channel in Flutter"
 # flutter/bin/flutter channel beta
