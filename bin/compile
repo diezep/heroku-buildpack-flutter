@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 # bin/compile <build-dir> <cache-dir> <env-dir>
-ls $CACHE_DIR
-echo "hola" > $CACHE_DIR/hola.txt
 
 set -e
 unset GIT_DIR
@@ -38,6 +36,10 @@ if [ -z "$FLUTTER_SDK_URL" ]; then
     exit 1
 fi
 
+if [! -d $CACHE_DIR ]; then
+  print "Creating CACHE_DIR"
+  mkdir -p $CACHE_DIR
+fi
 
 if [ -d $CACHE_DIR/dart-sdk ]; then
   print "-----> Restoring DART from cache"
@@ -72,10 +74,8 @@ else
   git pull 
   cd ..
 fi
+
 cd $BUILD_DIR
-ls 
-print "- - -"
-ls flutter
 flutter/bin/flutter version 1.19.0-4.3.pre 
 # print "----> Changing to beta channel in Flutter"
 # flutter/bin/flutter channel beta
