@@ -114,7 +114,8 @@ fi
 # Move only web files.
 cd $BUILD_DIR
 mkdir TO_DELETE
-mv !(TO_DELETE) TO_DELETE
+shopt -s extglob
+mv !("TO_DELETE") TO_DELETE
 mv -R TO_DELETE/build/web/* $BUILD_DIR  
 rm -rf TO_DELETE
 
