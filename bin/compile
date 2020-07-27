@@ -37,7 +37,7 @@ if [ -z "$FLUTTER_SDK_URL" ]; then
     exit 1
 fi
 
-print "Creating CACHE_DIR if not exists"
+print "-----> Creating CACHE_DIR if not exists"
 mkdir -p $CACHE_DIR
 
 if [ -d $CACHE_DIR/dart-sdk ]; then
@@ -70,8 +70,8 @@ else
   cd $BUILD_DIR
   curl -L -k $FLUTTER_SDK_URL > flutter-sdk.tar.xz ; tar xf flutter-sdk.tar.xz
   
-  # print "----> Changing to beta channel in Flutter"
-  # flutter/bin/flutter channel beta
+  print "----> Changing to beta channel in Flutter"
+  flutter/bin/flutter channel beta
 
   cd flutter
   git pull
@@ -81,9 +81,10 @@ fi
 cd $BUILD_DIR
 # flutter/bin/flutter version 1.19.0-4.3.pre
 
-if [ -z "$FLUTTER_UPGRADE" ] || [ "$FLUTTER_UPGRADE" = true ] ; then
+if [ -n "$FLUTTER_UPGRADE" ] || [ "$FLUTTER_UPGRADE" = true ] ; then
   print "----> FLUTTER UPGRADE"
   flutter/bin/flutter upgrade
+  flutter/bin/flutter channel beta
 fi
 
 print "----> FLUTTER CLEANING "
