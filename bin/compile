@@ -69,19 +69,16 @@ else
   print "-----> Installing Flutter SDK via URL $FLUTTER_SDK_URL"
   cd $BUILD_DIR
   curl -L -k $FLUTTER_SDK_URL > flutter-sdk.tar.xz ; tar xf flutter-sdk.tar.xz
-  
-  print "----> Changing to beta channel in Flutter"
-  flutter/bin/flutter channel beta
 
   cd flutter
   git pull
-  cd .. 
+  cd ..
+
 fi
 
 cd $BUILD_DIR
 
-
-# flutter/bin/flutter version 1.19.0-4.3.pre
+print "----> Changing to beta channel in Flutter"
 flutter/bin/flutter channel beta
 
 if [ "$FLUTTER_UPGRADE" = true ] ; then
@@ -116,7 +113,6 @@ if [ -x flutter/bin/flutter ]; then
   rm -rf $BUILD_DIR/flutter
 fi
 
-
 # Move only web files.
 cd $BUILD_DIR
 mkdir TO_DELETE
@@ -125,6 +121,6 @@ mv !("TO_DELETE") TO_DELETE
 mv TO_DELETE/build/web/* $BUILD_DIR  
 rm -rf TO_DELETE
 
-
+# Build web files to deploy.
 echo '{}' > composer.json
 echo '<?php include_once("index.html"); ?>' > index.php
