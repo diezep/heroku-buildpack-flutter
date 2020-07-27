@@ -7,11 +7,7 @@ unset GIT_DIR
 function print {
   echo "$1"
 }
-
-BUILD_DIR=${1:-}
-CACHE_DIR=${2:-}
-
-export_env_dir() {
+function export_env_dir() {
   env_dir=$1
   acceptlist_regex=${2:-''}
   denylist_regex=${3:-'^(PATH|GIT_DIR|CPATH|CPPATH|LD_PRELOAD|LIBRARY_PATH)$'}
@@ -24,7 +20,12 @@ export_env_dir() {
   fi
 }
 
+
+BUILD_DIR=${1:-}
+CACHE_DIR=${2:-}
+
 export_env_dir "$3"
+
 
 # Check ENV VARS
 if [ -z "$DART_SDK_URL" ]; then
@@ -69,22 +70,23 @@ else
   cd $BUILD_DIR
   curl -L -k $FLUTTER_SDK_URL > flutter-sdk.tar.xz ; tar xf flutter-sdk.tar.xz
   cd flutter
-  git pull 
-  cd ..
+  git pull
+  cd .. 
 fi
 
 cd $BUILD_DIR
 # flutter/bin/flutter version 1.19.0-4.3.pre 
 # ls 
-# print "----> Changing to beta channel in Flutter"
-# flutter/bin/flutter channel beta
+print "----> Changing to beta channel in Flutter"
+flutter/bin/flutter channel beta
 
-# print "----> Running Flutter upgrade"
-# flutter/bin/flutter upgrade
-
-#flutter/bin/flutter doctor 
-# flutter/bin/flutter clean 
-
+if [-z "$FLUTTER_UPGRADE"] || ["$FLUTTER_UPGRADE" = true] ; then
+  print "----> Flutter upgrade "
+  flutter/bin/flutter upgrade
+fi
+ 
+print "----> Doing Flutter cleaning "
+flutter/bin/flutter clean 
 
 print "----> GETTING PACKAGES"
 flutter/bin/flutter pub get
@@ -120,5 +122,5 @@ mv TO_DELETE/build/web/* $BUILD_DIR
 rm -rf TO_DELETE
 
 
-echo '{}' > $BUILD_DIR/composer.json
-echo '<?php include_once("index.html"); ?>' > $BUILD_DIR/index.php
+dart-sdk/bin/pub global activate webdev 
+dart-sdk/bin/pub global run webdev build
