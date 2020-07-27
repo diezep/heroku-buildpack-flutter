@@ -110,15 +110,14 @@ if [ -x flutter/bin/flutter ]; then
   rm -rf $BUILD_DIR/flutter
 fi
 
+
+mkdir $BUILD_DIR/TO_DELETE
+
 # Move only web files.
+mv $BUILD_DIR/* $BUILD_DIR/TO_DELETE/
+mv -R $BUILD_DIR/TO_DELETE/build/web/* $BUILD_DIR  
+rm -rf $BUILD_DIR/TO_DELETE
 
-TEMP_DIR=`mkdir $CACHE_DIR/web`
-cp -R $BUILD_DIR/$PROJECT_PATH/. $TMP_DIR/
-rm -rf $BUILD_DIR
-mkdir -p $BUILD_DIR
-cp -R $TMP_DIR/. $BUILD_DIR/
-rm -rf $TMP_DIR
 
-cd $BUILD_DIR
-echo '{}' > composer.json
-echo '<?php include_once("index.html"); ?>' > index.php
+echo '{}' > $BUILD_DIR/composer.json
+echo '<?php include_once("index.html"); ?>' > $BUILD_DIR/index.php
