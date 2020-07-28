@@ -39,10 +39,10 @@ else
   # flutter/bin/flutter channel beta
 
   print "Enablig Web support"
-  flutter/bin/flutter channel beta  
-  flutter/bin/flutter upgrade
-  flutter/bin/flutter config --enable-web --quiet
+  flutter/bin/flutter channel beta --quiet
+  flutter/bin/flutter upgrade --quiet
 fi
+
 
 if [ -n "$FLUTTER_VERSION" ]; then
   flutter/bin/flutter --machine --version > flutter.json
@@ -50,9 +50,7 @@ if [ -n "$FLUTTER_VERSION" ]; then
   
   if [ "$FLUTTER_VERSION" != "$frameworkVersion" ]; then
     print "Installing SDK version : $FLUTTER_VERSION"
-    flutter/bin/flutter version $FLUTTER_VERSION --quiet
-  else
-    echo $frameworkVersion
+    flutter/bin/flutter version $FLUTTER_VERSION --quiet  
   fi
   rm flutter.json
 
@@ -60,6 +58,9 @@ else
   print "FLUTTER UPGRADE"
   flutter/bin/flutter upgrade --quiet
 fi
+
+print "ENABLE FLUTTER WEB"
+flutter/bin/flutter config --enable-web --quiet
 
 print "FLUTTER CLEANING "
 flutter/bin/flutter clean --quiet
