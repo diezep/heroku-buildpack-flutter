@@ -1,5 +1,5 @@
-# Heroku buildpack for Flutter
-This buildpack for Flutter developers. Deploy your Flutter Web projects on Heroku easily.
+# Heroku × Flutter
+Compile and deploy your Flutter Web projects automatically on Heroku easily.
 
 ## 🔨 Setup
 #### 1. Add this buildpack in your Heroku app.
