@@ -35,10 +35,9 @@ else
   print "Installing SDK from Github repository."
   git clone -b beta https://github.com/flutter/flutter.git
   # curl -L -k $FLUTTER_SDK_URL > flutter-sdk.tar.xz ; tar xf flutter-sdk.tar.xz
-
 fi
 
-if [ -z "$FLUTTER_VERSION" ]; then
+if [ -n "$FLUTTER_VERSION" ]; then
   print "Installing SDK version : $FLUTTER_VERSION"
   flutter/bin/flutter version $FLUTTER_VERSION --quiet
 else
