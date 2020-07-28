@@ -61,8 +61,7 @@ flutter/bin/flutter pub get --quiet
 # flutter/bin/flutter config --enable-web --quiet
 
 print "BUILDING FLUTTER WEB APP"
-flutter/bin/flutter build web --release --quiet
-# --dart-define=FLUTTER_WEB_USE_EXPERIMENTAL_CANVAS_TEXT=true
+flutter/bin/flutter build web --release --dart-define=FLUTTER_WEB_USE_EXPERIMENTAL_CANVAS_TEXT=true --quiet 
 
 # Saving SDK in Cache
 if [ -x flutter/bin/flutter ]; then
