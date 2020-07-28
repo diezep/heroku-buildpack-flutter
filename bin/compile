@@ -21,6 +21,9 @@ function export_env_dir() {
   fi
 }
 
+
+
+
 BUILD_DIR=${1:-}
 CACHE_DIR=${2:-}
 
@@ -39,12 +42,21 @@ else
   # flutter/bin/flutter channel beta
 
   print "Enablig Web support"
+  flutter channel beta
+ flutter upgrade
+ flutter config --enable-web
   flutter/bin/flutter config --enable-web --quiet
 fi
 
 if [ -n "$FLUTTER_VERSION" ]; then
-  print "Installing SDK version : $FLUTTER_VERSION"
-  flutter/bin/flutter version $FLUTTER_VERSION --quiet
+  flutter/bin/flutter --machine --version > flutter.json
+  . <(sed 's/^ *\|[{}",]*//g; /^ *$/{d;n}; s/: /="/; s/$/"/; /=/!{d;n}' flutter.json)
+  
+  if [ "$FLUTTER_VERSION" != "$frameworkVersion"]; then
+    print "Installing SDK version : $FLUTTER_VERSION"
+    flutter/bin/flutter version $FLUTTER_VERSION --quiet
+  fi
+
 else
   # cd $BUILD_DIR
   print "FLUTTER UPGRADE"
