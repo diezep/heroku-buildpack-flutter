@@ -21,9 +21,6 @@ function export_env_dir() {
   fi
 }
 
-
-
-
 BUILD_DIR=${1:-}
 CACHE_DIR=${2:-}
 
@@ -36,15 +33,14 @@ if [ -d $CACHE_DIR/flutter ]; then
   cp -R $CACHE_DIR/flutter $BUILD_DIR
 else
   print "Installing SDK from Github repository."
-  git clone -b beta https://github.com/flutter/flutter.git
+  git clone -b master https://github.com/flutter/flutter.git
   # curl -L -k $FLUTTER_SDK_URL > flutter-sdk.tar.xz ; tar xf flutter-sdk.tar.xz
   # print "Changing to beta channel"
   # flutter/bin/flutter channel beta
 
   print "Enablig Web support"
-  flutter channel beta
- flutter upgrade
- flutter config --enable-web
+  flutter/bin/flutter channel beta  
+  flutter/bin/flutter upgrade
   flutter/bin/flutter config --enable-web --quiet
 fi
 
@@ -55,10 +51,12 @@ if [ -n "$FLUTTER_VERSION" ]; then
   if [ "$FLUTTER_VERSION" != "$frameworkVersion" ]; then
     print "Installing SDK version : $FLUTTER_VERSION"
     flutter/bin/flutter version $FLUTTER_VERSION --quiet
+  else
+    echo $frameworkVersion
   fi
   rm flutter.json
+
 else
-  # cd $BUILD_DIR
   print "FLUTTER UPGRADE"
   flutter/bin/flutter upgrade --quiet
 fi
