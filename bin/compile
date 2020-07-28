@@ -3,9 +3,10 @@
 
 set -e
 unset GIT_DIR
+exec > >(sed 's/^/[Flutter Buildpack]: /')
 
 function print() {
-  echo "[Flutter Buildpack] $1"
+  echo "$1"
 }
 function export_env_dir() {
   env_dir=$1
