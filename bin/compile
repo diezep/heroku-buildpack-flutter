@@ -39,14 +39,15 @@ else
   # flutter/bin/flutter channel beta
 
   print "Enablig Web support"
-  flutter/bin/flutter channel beta --quiet
+  # flutter/bin/flutter channel beta --quiet
   flutter/bin/flutter upgrade --quiet
 fi
 
+# Load bash variables from flutter --machine --version
+flutter/bin/flutter --machine --version > flutter.json
+. <(sed 's/^ *\|[{}",]*//g; /^ *$/{d;n}; s/: /="/; s/$/"/; /=/!{d;n}' flutter.json)
 
 if [ -n "$FLUTTER_VERSION" ]; then
-  flutter/bin/flutter --machine --version > flutter.json
-  . <(sed 's/^ *\|[{}",]*//g; /^ *$/{d;n}; s/: /="/; s/$/"/; /=/!{d;n}' flutter.json)
   
   if [ "$FLUTTER_VERSION" != "$frameworkVersion" ]; then
     print "Installing SDK version : $FLUTTER_VERSION"
@@ -56,6 +57,11 @@ if [ -n "$FLUTTER_VERSION" ]; then
 
 else
   print "FLUTTER UPGRADE"
+  
+  if [ $channel != "beta" ];then
+    flutter/bin/flutter channel beta --quiet
+  fi
+
   flutter/bin/flutter upgrade --quiet
 fi
 
