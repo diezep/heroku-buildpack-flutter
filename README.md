@@ -15,6 +15,6 @@ This buildpack for Flutter developers. Deploy your Flutter Web projects on Herok
   
   If this is your case, you can try downgrade the Flutter version manually, add FLUTTER_VERSION variable in your Heroku environment with the number of the most recent version that are currently working correctly.
   
-**[UPDATED] Last working version: ** 1.19.0-4.3.pre
+** [UPDATED] Last working version: ** 1.19.0-4.3.pre
 
 And that's it, your web page will be ready in a few minutes.
