@@ -4,7 +4,7 @@
 set -e
 unset GIT_DIR
 
-function print {
+function print() {
   echo "[Flutter Buildpack] $1"
 }
 function export_env_dir() {
@@ -14,12 +14,11 @@ function export_env_dir() {
   if [ -d "$env_dir" ]; then
     for e in $(ls $env_dir); do
       echo "$e" | grep -E "$acceptlist_regex" | grep -qvE "$denylist_regex" &&
-      export "$e=$(cat $env_dir/$e)"
+        export "$e=$(cat $env_dir/$e)"
       :
     done
   fi
 }
-
 
 BUILD_DIR=${1:-}
 CACHE_DIR=${2:-}
@@ -35,6 +34,7 @@ else
   print "Installing SDK from Github repository."
   git clone -b beta https://github.com/flutter/flutter.git
   # curl -L -k $FLUTTER_SDK_URL > flutter-sdk.tar.xz ; tar xf flutter-sdk.tar.xz
+  flutter/bin/flutter channel beta --quiet
 fi
 
 if [ -n "$FLUTTER_VERSION" ]; then
@@ -72,9 +72,9 @@ cd $BUILD_DIR
 mkdir TO_DELETE
 shopt -s extglob
 mv !("TO_DELETE") TO_DELETE
-mv TO_DELETE/build/web/* $BUILD_DIR  
+mv TO_DELETE/build/web/* $BUILD_DIR
 rm -rf TO_DELETE
 
 # Build web files to deploy.
-echo '{}' > composer.json
-echo '<?php include_once("index.html"); ?>' > index.php
+echo '{}' >composer.json
+echo '<?php include_once("index.html"); ?>' >index.php
