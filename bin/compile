@@ -35,8 +35,8 @@ else
   print "Installing SDK from Github repository."
   git clone -b beta https://github.com/flutter/flutter.git
   # curl -L -k $FLUTTER_SDK_URL > flutter-sdk.tar.xz ; tar xf flutter-sdk.tar.xz
-  print "Changing to beta channel"
-  flutter/bin/flutter channel beta
+  # print "Changing to beta channel"
+  # flutter/bin/flutter channel beta
 
   print "Enablig Web support"
   flutter/bin/flutter config --enable-web --quiet
