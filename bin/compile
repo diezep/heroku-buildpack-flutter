@@ -111,7 +111,7 @@ else
   
   # Build web files to deploy.
   echo '{}' > $BUILD_DIR/composer.json
-  echo '<?php include_once('$BUILD_DIR/build/web/'index.html"); ?>' > $BUILD_DIR/index.php
+  echo '<?php include_once("$BUILD_DIR/build/web/index.html"); ?>' > $BUILD_DIR/index.php
 fi
 
 
