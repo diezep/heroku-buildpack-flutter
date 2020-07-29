@@ -1,7 +1,22 @@
 #!/bin/sh
+
+BUILD_DIR=${1:-}
+
+echo 'wooow'$DEPLOY_DIR
+
+if [ -d $BUILD_DIR/build/web ];then 
 cat << EOF
 ---
 default_process_types:
-  web: flutter/bin/flutter packages pub global run dhttpd 
+    web: flutter/bin/flutter packages pub global run dhttpd  --path ${BUILD_DIR/build/web}
 
 EOF
+
+else
+cat << EOF
+---
+default_process_types:
+    web: flutter/bin/flutter packages pub global run dhttpd  --path ${BUILD_DIR}
+
+EOF
+fi
