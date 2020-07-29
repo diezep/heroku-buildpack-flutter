@@ -89,25 +89,26 @@ if [ -x flutter/bin/flutter ]; then
 fi
 
 # Check  FLUTTER_CLEANUP var to delete all files or keep it.
-# if [ "$FLUTTER_CLEANUP" = false ]; then
+shopt -s extglob
+
+if [ "$FLUTTER_CLEANUP" = false ]; then
     
-#   DEPLOY_DIR=$BUILD_DIR/build/web/
+  DEPLOY_DIR=$BUILD_DIR/build/web/
 
-# else
+else
+
+  mkdir -p $BUILD_DIR/TO_DELETE
+
+  mv !("TO_DELETE") TO_DELETE
   
-#   mkdir -p $BUILD_DIR/TO_DELETE
-
-#   shopt -s extglob
-#   mv !("TO_DELETE") TO_DELETE
+  mv TO_DELETE/build/web/* $BUILD_DIR
+  mv TO_DELETE/flutter $BUILD_DIR
+  rm -rf TO_DELETE
   
-#   mv TO_DELETE/build/web/* $BUILD_DIR
-#   mv TO_DELETE/flutter $BUILD_DIR
-#   rm -rf TO_DELETE
-  
-#   DEPLOY_DIR=
+  DEPLOY_DIR=$BUILD_DIR
 
-# fi
+fi
 
-# # Build web files to deploy.
-# echo '{}' > composer.json
-# echo '<?php include_once("index.html"); ?>' > index.php
+# Build web files to deploy.
+echo '{}' > composer.json
+echo '<?php include_once("'$DEPLOY_DIR'index.html"); ?>' > index.php
