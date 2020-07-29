@@ -1,0 +1,22 @@
+#!/bin/sh
+
+BUILD_DIR=${1:-}
+
+if [ -d $BUILD_DIR/build/web ]; then
+    cd $BUILD_DIR/build/web
+    cat <<EOF
+---
+default_process_types:
+    web: python -m SimpleHTTPServer
+
+EOF
+
+else
+    cd $BUILD_DIR
+    cat <<EOF
+---
+default_process_types:
+    web: python -m SimpleHTTPServer
+
+EOF
+fi

@@ -111,5 +111,5 @@ else
   
   DEPLOY_DIR=$BUILD_DIR
 fi
-cd $DEPLOY_DIR
-echo 'web: python -m SimpleHTTPServer' > Procfile
+# cd $DEPLOY_DIR
+# echo 'web: python -m SimpleHTTPServer' > Procfile
