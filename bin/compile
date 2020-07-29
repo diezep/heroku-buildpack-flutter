@@ -90,7 +90,7 @@ if [ -x flutter/bin/flutter ]; then
   cp -R $BUILD_DIR/flutter $CACHE_DIR/flutter
 fi
 
-# export PATH="$PATH":"$HOME/.pub-cache/bin"
+export PATH="$PATH":"$HOME/.pub-cache/bin"
 
 # Check  FLUTTER_CLEANUP var to delete all files or keep it.
 shopt -s extglob
