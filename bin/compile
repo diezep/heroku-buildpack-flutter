@@ -111,4 +111,4 @@ else
   DEPLOY_DIR=$BUILD_DIR
 fi
 
-echo 'web: flutter/bin/flutter packages pub global run dhttpd --path '$DEPLOY_DIR
+echo 'web: flutter/bin/flutter packages pub global run dhttpd --path '$DEPLOY_DIR > Procfile
