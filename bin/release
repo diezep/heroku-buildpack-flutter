@@ -8,7 +8,7 @@ if [ -d $BUILD_DIR/build/web ];then
 cat << EOF
 ---
 default_process_types:
-    web: flutter/bin/flutter packages pub global run dhttpd  --path ${BUILD_DIR/build/web}
+    web: dhttpd --path ${BUILD_DIR/build/web}
 
 EOF
 
@@ -16,7 +16,7 @@ else
 cat << EOF
 ---
 default_process_types:
-    web: flutter/bin/flutter packages pub global run dhttpd  --path ${BUILD_DIR}
+    web: dhttpd --path ${BUILD_DIR}
 
 EOF
 fi
