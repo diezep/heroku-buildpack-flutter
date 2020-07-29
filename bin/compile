@@ -95,9 +95,9 @@ if [ "$FLUTTER_CLEANUP" = false ]; then
   cd $BUILD_DIR/build/web/
   
   # Build web files to deploy.
-  echo '{}' > $BUILD_DIR/composer.json
-  print '<?php include_once("'$BUILD_DIR'/build/web/index.html"); ?>' 
-  echo '<?php include_once("'$BUILD_DIR'/build/web/index.html"); ?>' > $BUILD_DIR/index.php
+  # echo '{}' > $BUILD_DIR/composer.json
+  # print '<?php include_once("'$BUILD_DIR'/build/web/index.html"); ?>' 
+  # echo '<?php include_once("'$BUILD_DIR'/build/web/index.html"); ?>' > $BUILD_DIR/index.php
 
 else
   # Move only web files.
@@ -110,8 +110,8 @@ else
   cd $BUILD_DIR
 
   # Build web files to deploy.
-  echo '{}' > composer.json
-  echo '<?php include_once("index.html"); ?>' > index.php
+  # echo '{}' > composer.json
+  # echo '<?php include_once("index.html"); ?>' > index.php
 fi
 
 
