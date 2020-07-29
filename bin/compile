@@ -3,7 +3,7 @@
 
 set -e
 unset GIT_DIR
-exec > >(sed 's/^/[Flutter Buildpack]: /')
+# exec > >(sed 's/^/[Flutter Buildpack]: /')
 
 function print() {
   echo "$1"
@@ -111,7 +111,8 @@ else
   
   # Build web files to deploy.
   echo '{}' > $BUILD_DIR/composer.json
-  echo '<?php include_once("$BUILD_DIR/build/web/index.html"); ?>' > $BUILD_DIR/index.php
+  print "<?php include_once('$BUILD_DIR/build/web/index.html'); ?>" 
+  echo "<?php include_once('$BUILD_DIR/build/web/index.html'); ?>" > $BUILD_DIR/index.php
 fi
 
 
