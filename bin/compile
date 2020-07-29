@@ -88,6 +88,7 @@ if [ -x flutter/bin/flutter ]; then
   print "SAVING IN CACHE"
   rm -rf $CACHE_DIR/flutter
   cp -R $BUILD_DIR/flutter $CACHE_DIR/flutter
+  rm -rf $BUILD_DIR/flutter
 fi
 
 export PATH="$PATH":"$HOME/.pub-cache/bin"
