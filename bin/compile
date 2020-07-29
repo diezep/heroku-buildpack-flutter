@@ -111,6 +111,4 @@ else
   DEPLOY_DIR=$BUILD_DIR
 fi
 
-
-cd $DEPLOY_DIR
-dhttpd
+flutter/bin/flutter packages pub global run dhttpd --path $DEPLOY_DIR
