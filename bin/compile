@@ -105,10 +105,10 @@ else
   mv !("TO_DELETE") TO_DELETE
   
   mv TO_DELETE/build/web/* $BUILD_DIR
-  mv TO_DELETE/flutter $BUILD_DIR
+  # mv TO_DELETE/flutter $BUILD_DIR
   rm -rf TO_DELETE
   
   DEPLOY_DIR=$BUILD_DIR
 fi
 
-echo 'web: flutter/bin/flutter packages pub global run dhttpd --path '$DEPLOY_DIR > Procfile
+echo 'web: '$CACHE_DIR'/flutter/bin/flutter packages pub global run dhttpd --path '$DEPLOY_DIR > Procfile
