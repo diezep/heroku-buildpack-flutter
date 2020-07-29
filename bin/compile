@@ -43,7 +43,7 @@ else
   flutter/bin/flutter upgrade --quiet
 fi
 
-# Load bash variables from flutter --machine --version
+# Load bash variables from flutter --machine --version and read it like variable.
 flutter/bin/flutter --machine --version > flutter.json
 . <(sed 's/^ *\|[{}",]*//g; /^ *$/{d;n}; s/: /="/; s/$/"/; /=/!{d;n}' flutter.json)
 
@@ -89,14 +89,30 @@ if [ -x flutter/bin/flutter ]; then
   rm -rf $BUILD_DIR/flutter
 fi
 
-# Move only web files.
-cd $BUILD_DIR
-mkdir TO_DELETE
-shopt -s extglob
-mv !("TO_DELETE") TO_DELETE
-mv TO_DELETE/build/web/* $BUILD_DIR
-rm -rf TO_DELETE
 
-# Build web files to deploy.
-echo '{}' >composer.json
-echo '<?php include_once("index.html"); ?>' >index.php
+
+if [ "$FLUTTER_CLEANUP" = true ]; then
+  
+  # Move only web files.
+  cd $BUILD_DIR
+  mkdir TO_DELETE
+  shopt -s extglob
+  mv !("TO_DELETE") TO_DELETE
+  mv TO_DELETE/build/web/* $BUILD_DIR
+  rm -rf TO_DELETE
+  cd $BUILD_DIR
+
+  # Build web files to deploy.
+  echo '{}' > $BUILD_DIR/composer.json
+  echo '<?php include_once("index.html"); ?>' > index.php
+
+else
+  cd $BUILD_DIR/build/web/
+  
+  # Build web files to deploy.
+  echo '{}' > $BUILD_DIR/composer.json
+  echo '<?php include_once('$BUILD_DIR/build/web/'index.html"); ?>' > $BUILD_DIR/index.php
+fi
+
+
+
