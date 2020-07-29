@@ -96,7 +96,6 @@ if [ "$FLUTTER_CLEANUP" = false ]; then
   DEPLOY_DIR=$BUILD_DIR/build/web/
 
 else
-
   mkdir -p $BUILD_DIR/TO_DELETE
 
   mv !("TO_DELETE") TO_DELETE
@@ -106,9 +105,6 @@ else
   rm -rf TO_DELETE
   
   DEPLOY_DIR=$BUILD_DIR
-
 fi
 
-# Build web files to deploy.
-echo '{}' > composer.json
-echo '<?php include_once("'$DEPLOY_DIR'index.html"); ?>' > index.php
+flutter/bin/flutter packages pub global activate dhttpd
