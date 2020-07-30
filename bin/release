@@ -1,0 +1,16 @@
+#!/bin/sh
+
+BUILD_DIR=${1:-}
+
+if [ -d $BUILD_DIR/build/web ]; then
+    cd $BUILD_DIR/build/web
+else
+    cd $BUILD_DIR
+fi
+
+cat <<EOF
+---
+default_process_types:
+    web: /app/flutter/bin/flutter packages pub global run dhttpd
+
+EOF

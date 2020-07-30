@@ -81,17 +81,21 @@ print "BUILDING FLUTTER WEB APP"
 flutter/bin/flutter build web --release --quiet
 # --dart-define=FLUTTER_WEB_USE_EXPERIMENTAL_CANVAS_TEXT=true
 
-flutter/bin/flutter packages pub global activate dhttpd
+PUB_CACHE="/app/.pub-cache/"
+export PATH="$PATH":"$PUB_CACHE"
+mkdir -p $PUB_CACHE
 
-# Saving SDK in Cache
+
+
+# Saving SDK in Cache and in app.
 if [ -x flutter/bin/flutter ]; then
   print "SAVING IN CACHE"
   rm -rf $CACHE_DIR/flutter
   cp -R $BUILD_DIR/flutter $CACHE_DIR/flutter
+  cp -R $BUILD_DIR/flutter /app
   rm -rf $BUILD_DIR/flutter
 fi
 
-export PATH="$PATH":"$HOME/.pub-cache/bin"
 
 # Check  FLUTTER_CLEANUP var to delete all files or keep it.
 shopt -s extglob
@@ -111,5 +115,6 @@ else
   
   DEPLOY_DIR=$BUILD_DIR
 fi
-# cd $DEPLOY_DIR
-# echo 'web: python -m SimpleHTTPServer' > Procfile
+
+
+/app/flutter/bin/flutter packages pub global activate dhttpd
