@@ -11,6 +11,6 @@ fi
 cat <<EOF
 ---
 default_process_types:
-    web: /app/flutter/bin/flutter packages pub global run dhttpd
+    web: dhttpd
 
 EOF
