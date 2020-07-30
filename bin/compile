@@ -105,7 +105,7 @@ else
   mkdir -p $BUILD_DIR/TO_DELETE
 
   mv !("TO_DELETE") TO_DELETE
-  ls TO_DELETE/flutter/bin/cache/
+  ls TO_DELETE
   mv TO_DELETE/build/web/* $BUILD_DIR
   mv TO_DELETE/flutter/bin/cache/dart-sdk $BUILD_DIR
   rm -rf TO_DELETE
