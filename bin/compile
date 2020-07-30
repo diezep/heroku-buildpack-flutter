@@ -117,3 +117,4 @@ fi
 
 
 /app/flutter/bin/flutter packages pub global activate dhttpd
+cp -R $PUB_CACHE $BUILD_DIR/pub-cache
