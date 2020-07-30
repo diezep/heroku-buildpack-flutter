@@ -93,8 +93,6 @@ if [ -x flutter/bin/flutter ]; then
   rm -rf $BUILD_DIR/flutter
 fi
 
-ls /app
-
 # Check  FLUTTER_CLEANUP var to delete all files or keep it.
 shopt -s extglob
 
@@ -114,4 +112,5 @@ else
   DEPLOY_DIR=$BUILD_DIR
 fi
 
-dart-sdk/bin/dart pub global activate dhttpd
+$BUILD_DIR/dart-sdk/bin/dart pub global activate dhttpd
+ls
