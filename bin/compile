@@ -81,7 +81,7 @@ print "BUILDING FLUTTER WEB APP"
 flutter/bin/flutter build web --release --quiet
 # --dart-define=FLUTTER_WEB_USE_EXPERIMENTAL_CANVAS_TEXT=true
 
-PUB_CACHE="$HOME/.pub-cache/bin"
+PUB_CACHE="$HOME/.pub-cache/"
 mkdir -p $PUB_CACHE
 export PATH="$PATH":"$PUB_CACHE"
 
@@ -114,4 +114,4 @@ else
 fi
 
 $BUILD_DIR/dart-sdk/bin/dart pub global activate dhttpd
-cp -R $PUB_CACHE $BUILD_DIR/pub-cache
+cp -R $PUB_CACHE $BUILD_DIR
