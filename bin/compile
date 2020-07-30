@@ -81,12 +81,9 @@ print "BUILDING FLUTTER WEB APP"
 flutter/bin/flutter build web --release --quiet
 # --dart-define=FLUTTER_WEB_USE_EXPERIMENTAL_CANVAS_TEXT=true
 
-PUB_CACHE="/app/.pub-cache/"
-export PATH="$PATH":"$PUB_CACHE"
+PUB_CACHE="$HOME/.pub-cache/bin"
 mkdir -p $PUB_CACHE
-
-
-pwd
+export PATH="$PATH":"$PUB_CACHE"
 
 # Saving SDK in Cache and in app.
 if [ -x flutter/bin/flutter ]; then
@@ -97,6 +94,7 @@ if [ -x flutter/bin/flutter ]; then
   rm -rf $BUILD_DIR/flutter
 fi
 
+ls /app
 
 # Check  FLUTTER_CLEANUP var to delete all files or keep it.
 shopt -s extglob
