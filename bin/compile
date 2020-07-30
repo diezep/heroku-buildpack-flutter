@@ -99,7 +99,7 @@ shopt -s extglob
 
 if [ "$FLUTTER_CLEANUP" = false ]; then
     
-  DEPLOY_DIR=/app/build/web/
+  export DEPLOY_DIR=/app/build/web/
 
 else
   mkdir -p $BUILD_DIR/TO_DELETE
@@ -110,8 +110,7 @@ else
   mv TO_DELETE/dart-sdk $BUILD_DIR
   rm -rf TO_DELETE
   
-  DEPLOY_DIR=/app/
+  export DEPLOY_DIR=/app/
 fi
-export $DEPLOY_DIR
 $BUILD_DIR/dart-sdk/bin/dart pub global activate dhttpd
 cp -R $PUB_CACHE $BUILD_DIR
