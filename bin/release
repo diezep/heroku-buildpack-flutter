@@ -11,6 +11,6 @@ fi
 cat <<EOF
 ---
 default_process_types:
-    web: /app/dart-sdk/bin/dart pub global run dhttpd --path /app
+    web: /app/dart-sdk/bin/dart pub global run dhttpd --path /app --port ${PORT}
 
 EOF
