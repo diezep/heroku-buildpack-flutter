@@ -93,6 +93,7 @@ if [ -x flutter/bin/flutter ]; then
   # rm -rf $BUILD_DIR/flutter
 fi
 
+ls flutter/bin/cache
 # Check  FLUTTER_CLEANUP var to delete all files or keep it.
 shopt -s extglob
 
@@ -106,7 +107,7 @@ else
   mv !("TO_DELETE") TO_DELETE
   
   mv TO_DELETE/build/web/* $BUILD_DIR
-  mv TO_DELETE/flutter/bin/cache/dart-sdk/ $BUILD_DIR
+  mv TO_DELETE/flutter/bin/ $BUILD_DIR
   rm -rf TO_DELETE
   
   DEPLOY_DIR=$BUILD_DIR
