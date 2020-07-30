@@ -114,4 +114,4 @@ else
 fi
 
 $BUILD_DIR/dart-sdk/bin/dart pub global activate dhttpd
-cp -R $PUB_CACHE $BUILD_DIR
+cp -R $PUB_CACHE $BUILD_DIR/pub-cache
