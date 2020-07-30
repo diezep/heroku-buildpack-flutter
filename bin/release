@@ -7,7 +7,7 @@ if [ -d $BUILD_DIR/build/web ]; then
     cat <<EOF
 ---
 default_process_types:
-    web: python -m SimpleHTTPServer
+    web: python3 -m http.server
 
 EOF
 
@@ -16,7 +16,7 @@ else
     cat <<EOF
 ---
 default_process_types:
-    web: python -m SimpleHTTPServer
+    web: python3 -m http.server
 
 EOF
 fi
