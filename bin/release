@@ -7,7 +7,11 @@ if [ -d $BUILD_DIR/build/web ]; then
 else
     cd $BUILD_DIR
 fi
-
+echo '------'
+pwd
+echo '------'
+ls /app
+echo '------'
 cat <<EOF
 ---
 default_process_types:
