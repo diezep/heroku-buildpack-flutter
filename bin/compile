@@ -90,7 +90,7 @@ if [ -x flutter/bin/flutter ]; then
   print "SAVING IN CACHE"
   rm -rf $CACHE_DIR/flutter
   cp -R $BUILD_DIR/flutter $CACHE_DIR/flutter
-  rm -rf $BUILD_DIR/flutter
+  # rm -rf $BUILD_DIR/flutter
 fi
 
 # Check  FLUTTER_CLEANUP var to delete all files or keep it.
@@ -113,4 +113,3 @@ else
 fi
 
 $BUILD_DIR/dart-sdk/bin/dart pub global activate dhttpd
-ls
