@@ -11,6 +11,6 @@ fi
 cat <<EOF
 ---
 default_process_types:
-    web: dhttpd
+    web: /pub/cache/dhttpd
 
 EOF
