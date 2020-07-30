@@ -86,6 +86,7 @@ export PATH="$PATH":"$PUB_CACHE"
 mkdir -p $PUB_CACHE
 
 
+pwd
 
 # Saving SDK in Cache and in app.
 if [ -x flutter/bin/flutter ]; then
