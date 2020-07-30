@@ -112,5 +112,5 @@ else
   
   export DEPLOY_DIR=/app/
 fi
-$BUILD_DIR/dart-sdk/bin/dart pub global activate dhttpd
+$BUILD_DIR/dart-sdk/bin/dart pub global activate --sgit https://github.com/diezep/dhttpd.git
 cp -R $PUB_CACHE $BUILD_DIR
