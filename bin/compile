@@ -90,7 +90,6 @@ if [ -x flutter/bin/flutter ]; then
   print "SAVING IN CACHE"
   rm -rf $CACHE_DIR/flutter
   cp -R $BUILD_DIR/flutter $CACHE_DIR/flutter
-  cp -R $BUILD_DIR/flutter /app
   rm -rf $BUILD_DIR/flutter
 fi
 
@@ -109,12 +108,10 @@ else
   mv !("TO_DELETE") TO_DELETE
   
   mv TO_DELETE/build/web/* $BUILD_DIR
-  # mv TO_DELETE/flutter $BUILD_DIR
+  mv TO_DELETE/flutter/bin/cache/dart-sdk/ $BUILD_DIR
   rm -rf TO_DELETE
   
   DEPLOY_DIR=$BUILD_DIR
 fi
 
-
-/app/flutter/bin/flutter packages pub global activate dhttpd
-cp -R $PUB_CACHE $BUILD_DIR/pub-cache
+dart-sdk/bin/dart pub global activate dhttpd

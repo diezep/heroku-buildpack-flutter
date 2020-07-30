@@ -11,6 +11,6 @@ fi
 cat <<EOF
 ---
 default_process_types:
-    web: /app/pub-cache/dhttpd
+    web: /dart-sdk/bin/dart pub global run dhttpd
 
 EOF
