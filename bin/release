@@ -3,17 +3,14 @@
 BUILD_DIR=${1:-}
 # If the FLUTTER_CLEANUP is in false, or in true.
 if [ -d $BUILD_DIR/build/web ]; then
-    cat <<EOF
----
-default_process_types:
-    web: /app/dart-sdk/bin/dart pub global run dhttpd --path /app/build/web/ --host 0.0.0.0
-
-EOF
+    DEPLOY_DIR="/app/build/web/"
 else
-    cat <<EOF
+    DEPLOY_DIR="/app/"
+fi
+
+cat <<EOF
 ---
 default_process_types:
-    web: /app/dart-sdk/bin/dart pub global run dhttpd --path /app/ --host 0.0.0.0'
+    web: /app/dart-sdk/bin/dart pub global run dhttpd --host 0.0.0.0 --path ${DEPLOY_DIR}
 
 EOF
-fi
