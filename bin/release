@@ -2,9 +2,18 @@
 
 BUILD_DIR=${1:-}
 
-cat <<EOF
+if [ -d $BUILD_DIR/build/web ]; then
+    cat <<EOF
 ---
 default_process_types:
-    web: /app/dart-sdk/bin/dart pub global run dhttpd --path /app 
+    web: /app/dart-sdk/bin/dart pub global run dhttpd --path /app/build/web/ 
 
 EOF
+else
+    cat <<EOF
+---
+default_process_types:
+    web: /app/dart-sdk/bin/dart pub global run dhttpd --path /app/
+
+EOF
+fi
