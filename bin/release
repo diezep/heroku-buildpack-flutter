@@ -6,14 +6,14 @@ if [ -d $BUILD_DIR/build/web ]; then
     cat <<EOF
 ---
 default_process_types:
-    web: dart pub global run dhttpd -p /app/build/web/ -h 0.0.0.0
+    web: /app/dart-sdk/bin/dart pub global run dhttpd -p /app/build/web/ -h 0.0.0.0
 
 EOF
 else
     cat <<EOF
 ---
 default_process_types:
-    web: dart pub global run dhttpd -p /app/ -h 0.0.0.0
+    web: /app/dart-sdk/bin/dart pub global run dhttpd -p /app/ -h 0.0.0.0
 
 EOF
 fi
