@@ -3,11 +3,12 @@
 
 set -e
 unset GIT_DIR
-# exec > >(sed 's/^/[Flutter Buildpack]: /')
 
 function print() {
-  echo "$1"
+  echo "------> $1"
 }
+
+# Taken from https://devcenter.heroku.com/articles/buildpack-api
 function export_env_dir() {
   env_dir=$1
   acceptlist_regex=${2:-''}
@@ -25,39 +26,37 @@ BUILD_DIR=${1:-}
 CACHE_DIR=${2:-}
 
 export_env_dir "$3"
+
+# Create the cache directory if not exist.
 mkdir -p $CACHE_DIR
 
 cd $BUILD_DIR
+
 if [ -d $CACHE_DIR/flutter ]; then
-  print "Restoring SDK from CACHE"
+  print "Restoring Flutter SDK from CACHE"
   cp -R $CACHE_DIR/flutter $BUILD_DIR
 else
   print "Installing SDK from Github repository."
-  git clone -b beta https://github.com/flutter/flutter.git
-  # curl -L -k $FLUTTER_SDK_URL > flutter-sdk.tar.xz ; tar xf flutter-sdk.tar.xz
-  # print "Changing to beta channel"
-  # flutter/bin/flutter channel beta
-
-  print "Enablig Web support"
-  # flutter/bin/flutter channel beta
-  flutter/bin/flutter upgrade --quiet
+  git clone -b beta https://github.com/flutter/flutter.git --quiet
 fi
 
-# Load bash variables from flutter --machine --version and read it like variable.
-flutter/bin/flutter --machine --version > flutter.json
-. <(sed 's/^ *\|[{}",]*//g; /^ *$/{d;n}; s/: /="/; s/$/"/; /=/!{d;n}' flutter.json)
-
+# Check if FLUTTER_VERSION variables is set.
 if [ -n "$FLUTTER_VERSION" ]; then
   
+  # Load bash variables from flutter --machine --version and read it like  $FLUTTER_VERSION variable.
+  flutter/bin/flutter --machine --version > flutter.json
+  . <(sed 's/^ *\|[{}",]*//g; /^ *$/{d;n}; s/: /="/; s/$/"/; /=/!{d;n}' flutter.json)
+
+  # Check if the FLUTTER_VERSION is the same with the installed one.
   if [ "$FLUTTER_VERSION" != "$frameworkVersion" ]; then
-    print "Installing SDK version : $FLUTTER_VERSION"
+    print "Installing Flutter SDK version : $FLUTTER_VERSION"
     flutter/bin/flutter version $FLUTTER_VERSION --quiet  
   fi
   rm flutter.json
 
 else
-  print "FLUTTER UPGRADE"
   
+  print "Running flutter upgrade command"
   if [ $channel != "beta" ];then
     flutter/bin/flutter channel beta 
   fi
@@ -65,25 +64,27 @@ else
   flutter/bin/flutter upgrade --quiet
 fi
 
-print "ENABLE FLUTTER WEB"
+print "Enabling Web support"
 flutter/bin/flutter config --enable-web --quiet
 
-print "FLUTTER CLEANING "
+print "Running flutter clean command."
 flutter/bin/flutter clean --quiet
 
-print "GETTING PACKAGES"
+print "Getting packages from Flutter project"
 flutter/bin/flutter pub get --quiet
 
 # print "ENABLE FLUTTER WEB"
 # flutter/bin/flutter config --enable-web --quiet
 
-print "BUILDING FLUTTER WEB APP"
+print "Compiling the project."
 flutter/bin/flutter build web --release --quiet
 # --dart-define=FLUTTER_WEB_USE_EXPERIMENTAL_CANVAS_TEXT=true
 
 PUB_CACHE="$HOME/.pub-cache/"
 mkdir -p $PUB_CACHE
-export PATH="$PATH":"$PUB_CACHE"
+
+export PATH="$PATH":"/app/.pub-cache//bin"
+
 
 # Saving SDK in Cache and in app.
 if [ -x flutter/bin/flutter ]; then
@@ -102,7 +103,6 @@ if [ "$FLUTTER_CLEANUP" != false ]; then
   mkdir -p $BUILD_DIR/TO_DELETE
 
   mv !("TO_DELETE") TO_DELETE
-  ls TO_DELETE
   mv TO_DELETE/build/web/* $BUILD_DIR
   mv TO_DELETE/dart-sdk $BUILD_DIR
   rm -rf TO_DELETE
