@@ -107,7 +107,6 @@ fi
 # Activate dhttpd dart package to run the server. 
 # Is taken from my Github repo because some variables need to be changed every run 
 # like PORT from environment.
-if
 $BUILD_DIR/dart-sdk/bin/dart pub global activate -sgit https://github.com/diezep/dhttpd.git
 
 # Copy the cache resultant 
