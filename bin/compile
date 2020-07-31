@@ -97,11 +97,9 @@ fi
 # Check  FLUTTER_CLEANUP var to delete all files or keep it.
 shopt -s extglob
 
-if [ "$FLUTTER_CLEANUP" = false ]; then
+if [ "$FLUTTER_CLEANUP" != false ]; then
     
-  export DEPLOY_DIR=/app/build/web/
-
-else
+# else
   mkdir -p $BUILD_DIR/TO_DELETE
 
   mv !("TO_DELETE") TO_DELETE
@@ -110,7 +108,6 @@ else
   mv TO_DELETE/dart-sdk $BUILD_DIR
   rm -rf TO_DELETE
   
-  export DEPLOY_DIR=/app/
 fi
 $BUILD_DIR/dart-sdk/bin/dart pub global activate -sgit https://github.com/diezep/dhttpd.git
 cp -R $PUB_CACHE $BUILD_DIR
