@@ -83,7 +83,7 @@ flutter/bin/flutter build web --release --quiet
 PUB_CACHE="$HOME/.pub-cache/"
 mkdir -p $PUB_CACHE
 
-export PATH="$PATH":"/app/.pub-cache//bin"
+export PATH="$PATH":"/app/.pub-cache/bin"
 
 
 # Saving SDK in Cache and in app.
