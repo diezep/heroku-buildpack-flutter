@@ -8,6 +8,7 @@ function print() {
   echo "-----> $1"
 }
 
+
 # Taken from https://devcenter.heroku.com/articles/buildpack-api#bin-compile-summary
 function export_env_dir() {
   env_dir=$1
@@ -21,6 +22,11 @@ function export_env_dir() {
     done
   fi
 }
+# Taken from https://devcenter.heroku.com/articles/buildpack-api#style
+function indent() {
+  sed -u 's/^/       /'
+}
+
 
 BUILD_DIR=${1:-}
 CACHE_DIR=${2:-}
@@ -50,7 +56,7 @@ if [ -n "$FLUTTER_VERSION" ]; then
   # Check if the FLUTTER_VERSION is the same with the installed one.
   if [ "$FLUTTER_VERSION" != "$frameworkVersion" ]; then
     print "Installing Flutter SDK version : $FLUTTER_VERSION"
-    flutter/bin/flutter version $FLUTTER_VERSION --quiet  
+    flutter/bin/flutter version $FLUTTER_VERSION --quiet | indent  
   fi
   rm flutter.json
 
@@ -58,23 +64,23 @@ else
   
   print "Running flutter upgrade command"
   if [ $channel != "beta" ];then
-    flutter/bin/flutter channel beta 
+    flutter/bin/flutter channel beta | indent
   fi
 
-  flutter/bin/flutter upgrade --quiet
+  flutter/bin/flutter upgrade --quiet | indent
 fi
 
 print "Enabling Web support"
-flutter/bin/flutter config --enable-web --quiet
+flutter/bin/flutter config --enable-web --quiet | indent
 
 print "Running flutter clean command."
-flutter/bin/flutter clean --quiet
+flutter/bin/flutter clean --quiet | indent
 
 print "Getting packages from Flutter project"
-flutter/bin/flutter pub get --quiet
+flutter/bin/flutter pub get --quiet | indent
 
 print "Compiling the project."
-flutter/bin/flutter build web --release --quiet
+flutter/bin/flutter build web --release --quiet | indent
 # --dart-define=FLUTTER_WEB_USE_EXPERIMENTAL_CANVAS_TEXT=true
 
 PUB_CACHE="$HOME/.pub-cache/"
@@ -114,7 +120,7 @@ if [ -d "$CACHE_DIR/.pub-cache/" ]; then
   cp -R $CACHE_DIR/.pub-cache/* $PUB_CACHE  
 else
   print "Getting dhttpd to run web service."
-  $BUILD_DIR/dart-sdk/bin/dart pub global activate -sgit https://github.com/diezep/dhttpd.git
+  $BUILD_DIR/dart-sdk/bin/dart pub global activate -sgit https://github.com/diezep/dhttpd.git | indent
   
   print "Getting dhtppd to run web service."
   mkdir -p $CACHE_DIR/.pub-cache/
