@@ -99,7 +99,6 @@ shopt -s extglob
 
 if [ "$FLUTTER_CLEANUP" != false ]; then
     
-# else
   mkdir -p $BUILD_DIR/TO_DELETE
 
   mv !("TO_DELETE") TO_DELETE
