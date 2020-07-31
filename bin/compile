@@ -82,7 +82,7 @@ mkdir -p $PUB_CACHE
 
 # Saving SDK in Cache and in app.
 if [ -x flutter/bin/flutter ]; then
-  print "SAVING IN CACHE"
+  print "Saving Flutter SDK in Cache"
   rm -rf $CACHE_DIR/flutter
   cp -R $BUILD_DIR/flutter $CACHE_DIR/flutter
   mv $BUILD_DIR/flutter/bin/cache/dart-sdk/ $BUILD_DIR
