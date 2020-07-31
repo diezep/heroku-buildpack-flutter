@@ -8,7 +8,7 @@ function print() {
   echo "------> $1"
 }
 
-# Taken from https://devcenter.heroku.com/articles/buildpack-api
+# Taken from https://devcenter.heroku.com/articles/buildpack-api#bin-compile-summary
 function export_env_dir() {
   env_dir=$1
   acceptlist_regex=${2:-''}
@@ -73,18 +73,12 @@ flutter/bin/flutter clean --quiet
 print "Getting packages from Flutter project"
 flutter/bin/flutter pub get --quiet
 
-# print "ENABLE FLUTTER WEB"
-# flutter/bin/flutter config --enable-web --quiet
-
 print "Compiling the project."
 flutter/bin/flutter build web --release --quiet
 # --dart-define=FLUTTER_WEB_USE_EXPERIMENTAL_CANVAS_TEXT=true
 
 PUB_CACHE="$HOME/.pub-cache/"
 mkdir -p $PUB_CACHE
-
-export PATH="$PATH":"/app/.pub-cache/bin"
-
 
 # Saving SDK in Cache and in app.
 if [ -x flutter/bin/flutter ]; then
@@ -95,9 +89,10 @@ if [ -x flutter/bin/flutter ]; then
   rm -rf $BUILD_DIR/flutter
 fi
 
-# Check  FLUTTER_CLEANUP var to delete all files or keep it.
+#  To read hidden directories and use move with exclusion.
 shopt -s extglob
 
+# Check  FLUTTER_CLEANUP var to delete all files or keep it.
 if [ "$FLUTTER_CLEANUP" != false ]; then
     
   mkdir -p $BUILD_DIR/TO_DELETE
@@ -108,5 +103,15 @@ if [ "$FLUTTER_CLEANUP" != false ]; then
   rm -rf TO_DELETE
   
 fi
+
+# Activate dhttpd dart package to run the server. 
+# Is taken from my Github repo because some variables need to be changed every run 
+# like PORT from environment.
+if
 $BUILD_DIR/dart-sdk/bin/dart pub global activate -sgit https://github.com/diezep/dhttpd.git
+
+# Copy the cache resultant 
 cp -R $PUB_CACHE $BUILD_DIR
+
+export PATH="$PATH":"/app/dart-sdk/bin/"
+export PATH="$PATH":"/app/.pub-cache/bin"
