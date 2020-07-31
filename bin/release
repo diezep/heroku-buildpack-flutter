@@ -13,7 +13,7 @@ else
     cat <<EOF
 ---
 default_process_types:
-    web: /app/dart-sdk/bin/dart pub global run dhttpd -p /app/ -h 0.0.0.0
+    web: /app/dart-sdk/bin/dart pub global run dhttpd --path /app/ --host 0.0.0.0'
 
 EOF
 fi
