@@ -5,7 +5,7 @@ set -e
 unset GIT_DIR
 
 function print() {
-  echo "------> $1"
+  echo "-----> $1"
 }
 
 # Taken from https://devcenter.heroku.com/articles/buildpack-api#bin-compile-summary
