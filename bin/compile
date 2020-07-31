@@ -113,7 +113,7 @@ if [ -d "$CACHE_DIR/.pub-cache/" ]; then
   print "dhttpd Found in cache. Restoring."
   cp -R $CACHE_DIR/.pub-cache/* $PUB_CACHE  
 else
-  print "Getting dhtppd to run web service."
+  print "Getting dhttpd to run web service."
   $BUILD_DIR/dart-sdk/bin/dart pub global activate -sgit https://github.com/diezep/dhttpd.git
   
   print "Getting dhtppd to run web service."
