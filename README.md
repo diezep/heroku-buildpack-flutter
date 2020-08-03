@@ -5,8 +5,13 @@ Automate your deployments on Heroku easily.
 ## 🔨 Setup
 
 #### Add this Buildpack in your Heroku app 
-
+   In dashboard:
    You can copy the [link](https://github.com/diezep/heroku-buildpack-flutter) of this repository and paste it in buildpacks or write **diezep/flutter** and will be added automatically.
+   
+   In Heroku CLI:
+   ```shellscript
+   $ heroku buildpacks:set diezep/flutter -a <Heroku App name>
+   ```
 
 #### Optional
 
@@ -15,10 +20,8 @@ Automate your deployments on Heroku easily.
 #### Problems to compile
   By default, this buildpack get the **last version** of Flutter automatically, sometimes because is on beta channel, that version may have problems to compile a project with web support. 
   
-  If this is your case, you can try downgrade the Flutter version manually, add FLUTTER_VERSION variable in your Heroku environment with the number of the most recent version that are currently working correctly.
+  If this is your case, you can try downgrade the Flutter version manually, add FLUTTER_VERSION variable in your Heroku environment with the number of the version that are currently working web support [you can install the same version that is installed in your pc].
   
-**Last working version :** 1.19.0-4.3.pre
-   
 ## 🚩 TODO :
 
 ### Environment variables :
