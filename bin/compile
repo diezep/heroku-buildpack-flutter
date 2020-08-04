@@ -44,21 +44,18 @@ if [ -d $CACHE_DIR/flutter ]; then
 else
   print "Installing SDK from Github repository."
   git clone https://github.com/flutter/flutter.git --quiet
-  print "_-------_"
 fi
 
 # Check if FLUTTER_VERSION variables is set.
 if [ -n "$FLUTTER_VERSION" ]; then
-  
   # Load bash variables from flutter --machine --version and read it like  $FLUTTER_VERSION variable.
   flutter/bin/flutter --machine --version > flutter.json
   FLUTTER_INSTALLED_VERSION=$(grep -o '"frameworkVersion": *"[^"]*' flutter.json | grep -o '[^"]*$')
-  print $FLUTTER_INSTALLED_VERSION
 
   # Check if the FLUTTER_VERSION is the same with the installed one.
   if [ "$FLUTTER_VERSION" != "$FLUTTER_INSTALLED_VERSION" ]; then
     print "Installing Flutter SDK version : $FLUTTER_VERSION"
-    flutter/bin/flutter version $FLUTTER_VERSION --quiet 
+    flutter/bin/flutter version $FLUTTER_VERSION --quiet | indent
   fi
   rm flutter.json
 
