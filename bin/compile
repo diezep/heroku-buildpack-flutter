@@ -53,6 +53,7 @@ if [ -n "$FLUTTER_VERSION" ]; then
   # Load bash variables from flutter --machine --version and read it like  $FLUTTER_VERSION variable.
   flutter/bin/flutter --machine --version > flutter.json
   . <(sed 's/^ *\|[{}",]*//g; /^ *$/{d;n}; s/: /="/; s/$/"/; /=/!{d;n}' flutter.json)
+  print "_-------_"
 
   # Check if the FLUTTER_VERSION is the same with the installed one.
   if [ "$FLUTTER_VERSION" != "$frameworkVersion" ]; then
