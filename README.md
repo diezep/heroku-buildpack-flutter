@@ -19,7 +19,7 @@ Automate your deployments on Heroku easily.
    You can add optional [environment variables](#-environment-variables) to customize the deployment of your project but nothing is required, all are optional.
    
 #### Problems to compile
-  By default, this buildpack get the **last version** of Flutter automatically, sometimes because is on beta channel, that version may have problems to compile a project with web support in cloud services. [Open issue here](https://github.com/flutter/flutter/issues/60853) 
+  By default, this buildpack get the **last version** of Flutter automatically, sometimes because is on beta channel, that version may have problems to compile a project with web support in cloud services.
   
   If this is your case, you can try downgrade the Flutter version manually, add FLUTTER_VERSION variable in your Heroku environment with the number of the version that are currently working web support. 
   
