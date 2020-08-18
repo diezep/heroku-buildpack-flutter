@@ -19,9 +19,9 @@ Automate your deployments on Heroku easily.
    You can add optional [environment variables](#-environment-variables) to customize the deployment of your project but nothing is required, all are optional.
    
 #### Problems to compile
-  By default, this buildpack get the **last version** of Flutter automatically, sometimes because is on beta channel, that version may have problems to compile a project with web support. 
+  By default, this buildpack get the **last version** of Flutter automatically, sometimes because is on beta channel, that version may have problems to compile a project with web support in cloud services.
   
-  If this is your case, you can try downgrade the Flutter version manually, add FLUTTER_VERSION variable in your Heroku environment with the number of the version that are currently working web support [you can install the same version that is installed in your pc].
+  If this is your case, you can try downgrade the Flutter version manually, add FLUTTER_VERSION variable in your Heroku environment with the number of the version that are currently working web support. 
   
 ## 🚩 TODO :
 
@@ -46,7 +46,8 @@ All variables were built following the structure **FLUTTER_VARNAME** to identifi
 | Variable |   Type  |   Default        |  Description
 |----------|---------|------------------| -------------------|
 | CLEANUP  | *boolean* |  <center>true</center> |Remove **uneccessary files** of your project after the compile. |
-|  VERSION | <center>*string*</center> | *Last version in [beta channel](https://flutter.dev/docs/development/tools/sdk/releases?tab=linux).* | The **name of the version** you want to use to compile the project.| 
+|  VERSION | <center>*string*</center> | *Last version in [beta channel](https://flutter.dev/docs/development/tools/sdk/releases?tab=linux).* | The **name of the version** you want to use to compile the project.
+|  BUILD | <center>*string*</center> | <center>flutter build web --release --quiet</center> | Customize the **command to compile** the project.| 
 
 ### Set variable
    Example of setting CLEANUP var in Heroku CLI:
