@@ -78,8 +78,17 @@ flutter/bin/flutter clean --quiet | indent
 print "Getting packages from Flutter project"
 flutter/bin/flutter pub get --quiet | indent
 
+PATH="$PATH":"$(pwd)/flutter/bin/"
+
 print "Compiling the project."
-flutter/bin/flutter build web --release --quiet | indent
+if [ -z "$FLUTTER_BUILD" ]
+then
+  message 'Building with "flutter build web --release --quiet"'
+  flutter build web --release --quiet | indent
+else
+  message "Building with \"$FLUTTER_BUILD\""
+  eval $FLUTTER_BUILD | indent
+fi
 # --dart-define=FLUTTER_WEB_USE_EXPERIMENTAL_CANVAS_TEXT=true
 
 PUB_CACHE="$HOME/.pub-cache/"
