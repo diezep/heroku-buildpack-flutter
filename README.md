@@ -46,7 +46,8 @@ All variables were built following the structure **FLUTTER_VARNAME** to identifi
 | Variable |   Type  |   Default        |  Description
 |----------|---------|------------------| -------------------|
 | CLEANUP  | *boolean* |  <center>true</center> |Remove **uneccessary files** of your project after the compile. |
-|  VERSION | <center>*string*</center> | *Last version in [beta channel](https://flutter.dev/docs/development/tools/sdk/releases?tab=linux).* | The **name of the version** you want to use to compile the project.| 
+|  VERSION | <center>*string*</center> | *Last version in [beta channel](https://flutter.dev/docs/development/tools/sdk/releases?tab=linux).* | The **name of the version** you want to use to compile the project.
+|  BUILD | <center>*string*</center> | <center>flutter build web --release --quiet</center> | Customize the **command to compile** the project.| 
 
 ### Set variable
    Example of setting CLEANUP var in Heroku CLI:
