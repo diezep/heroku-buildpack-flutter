@@ -83,10 +83,10 @@ PATH="$PATH":"$(pwd)/flutter/bin/"
 print "Compiling the project."
 if [ -z "$FLUTTER_BUILD" ]
 then
-  message 'Building with "flutter build web --release --quiet"'
+  print 'Building with "flutter build web --release --quiet"'
   flutter build web --release --quiet | indent
 else
-  message "Building with \"$FLUTTER_BUILD\""
+  print "Building with \"$FLUTTER_BUILD\""
   eval $FLUTTER_BUILD | indent
 fi
 # --dart-define=FLUTTER_WEB_USE_EXPERIMENTAL_CANVAS_TEXT=true
