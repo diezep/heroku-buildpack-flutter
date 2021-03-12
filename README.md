@@ -65,3 +65,5 @@ The next image is an example of setting environment variables following the stru
 
 ## 📝 Final note
    This buildpack is unofficial that means i don't have any conection with Heroku or Google from Flutter developer team <!--Although I would like belonging to any of the two :D -->. This repository was made as a hobby, i'm always interested in learn new things, this is one demostration of that :)
+   
+Recently, [@ludwiktrammer](https://github.com/ludwiktrammer) developed a lighter version of this buildpack with some improvements, if you are having problems with size of project or you are using Heroku CI, i invite you to test it. [here's the repo](https://github.com/EE/heroku-buildpack-flutter-light)
