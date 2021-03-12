@@ -17,28 +17,7 @@ Automate your deployments on Heroku easily.
 #### Optional
 
    You can add optional [environment variables](#-environment-variables) to customize the deployment of your project but nothing is required, all are optional.
-   
-#### Problems to compile
-  By default, this buildpack get the **last version** of Flutter automatically, sometimes because is on beta channel, that version may have problems to compile a project with web support in cloud services.
   
-  If this is your case, you can try downgrade the Flutter version manually, add FLUTTER_VERSION variable in your Heroku environment with the number of the version that are currently working web support. 
-  
-## 🚩 TODO :
-
-### Environment variables :
-
-* [x] VERSION to set the name of custom version of Flutter.
-* [x] CLEANUP to remove uneccessary files after the build.
-* [ ] CACHE to remove and download every file its need to compile the project in every deploy.
-* [ ] SUBDIR to ubicate the project if it isn't in a root directory.
-
-### Features :
-
-* [x] No more PHP Buildpack needed.
-* [x] Save and restore Flutter and Dart SDK in cache.
-* [x] Save and restore [dhttpd](https://github.com/diezep/dhttpd) in cache.
-* [ ] Save and restore project dependencies needed in cache.
-
 ## 🚧 Environment variables:
 
 All variables were built following the structure **FLUTTER_VARNAME** to identified easily in Heroku configurations. If you want to use some variable, remember **use the structure** following to the variable.
