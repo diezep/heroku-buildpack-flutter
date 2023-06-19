@@ -74,7 +74,7 @@ print "Running flutter clean command."
 flutter/bin/flutter clean --quiet | indent
 
 print "Getting packages from Flutter project"
-flutter/bin/flutter pub get --quiet | indent
+flutter/bin/flutter pub get | indent
 
 PATH="$PATH":"$(pwd)/flutter/bin/"
 
