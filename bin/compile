@@ -57,8 +57,9 @@ if [ -n "$FLUTTER_VERSION" ]; then
     git checkout $FLUTTER_VERSION
   fi
 
-  # Avoid failing if the file does not exist
-  rm flutter.json || true
+  if [ -f flutter.json ]; then
+    rm flutter.json
+  fi
 else
 
   print "Running flutter upgrade command"
