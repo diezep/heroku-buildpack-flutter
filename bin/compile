@@ -104,16 +104,16 @@ fi
 shopt -s extglob
 
 # Check  FLUTTER_CLEANUP var to delete all files or keep it.
-if [ "$FLUTTER_CLEANUP" != false ]; then
+# if [ "$FLUTTER_CLEANUP" != false ]; then
 
-  mkdir -p $BUILD_DIR/TO_DELETE
+#   mkdir -p $BUILD_DIR/TO_DELETE
 
-  mv !("TO_DELETE") TO_DELETE
-  mv TO_DELETE/build/web/* $BUILD_DIR
-  mv TO_DELETE/dart-sdk $BUILD_DIR
-  rm -rf TO_DELETE
+#   mv !("TO_DELETE") TO_DELETE
+#   mv TO_DELETE/build/web/* $BUILD_DIR
+#   mv TO_DELETE/dart-sdk $BUILD_DIR
+#   rm -rf TO_DELETE
 
-fi
+# fi
 
 # Activate dhttpd dart package to run the server.
 # Is taken from my Github repo because some variables need to be changed every run
